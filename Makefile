@@ -1,7 +1,7 @@
 NAME = pipex
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
-SRC = pipex.c ft_check_args.c ft_init_pipex.c ft_parse_commands.c ft_parse_args.c
+SRC = pipex.c ft_check_args.c ft_init_pipex.c ft_parse_commands.c ft_parse_args.c ft_validate_path.c malloc_and_add_command_path.c
 OBJ = $(SRC:.c=.o)
 LIBFT = libft/libft.a
 

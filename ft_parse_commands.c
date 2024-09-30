@@ -37,31 +37,7 @@ static char *first_word(char *str)
 	word[i] = '\0';
 	return (word);
 }
-static int validate_path(t_pipex *pipex, char **paths, char *command_name, char *cmd)
-{
-	char *tmp;
-	int i;
 
-	i = 0;
-		while (paths[i])
-	{
-		tmp = (char *)malloc(sizeof(char) * (ft_strlen(paths[i]) + ft_strlen(cmd) + 2));
-		if (!tmp)
-			printf("Malloc failed\n");
-		tmp = ft_strjoin(paths[i], "/");
-		pipex->cmd_path = (char **)malloc(sizeof(char *) * pipex->command_count);
-		if (!pipex->cmd_path)
-			printf("Malloc failed\n");
-		pipex->cmd_path[pipex->i] = ft_strjoin(tmp, command_name); //without flag
-		if (!access(pipex->cmd_path[pipex->i], X_OK))
-		{
-			pipex->cmd_path[pipex->i] = ft_strjoin(tmp, cmd); //with flag
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
 static void loop_paths(t_pipex *pipex, char *path, char *cmd)
 {
 	char **paths;
@@ -73,9 +49,9 @@ static void loop_paths(t_pipex *pipex, char *path, char *cmd)
 	if (!paths[i])
 		printf("PATH is empty\n");
 	command_name = first_word(cmd);
-	if (validate_path(pipex, paths, command_name, cmd))
+	if (validate_path(pipex, paths, command_name))
 	{
-		printf("Command found: %s\n", pipex->cmd_path[pipex->i]);
+		// printf("Command found: %s\n", pipex->command_paths[pipex->i]);
 		free(command_name);
 		return ;
 	}
@@ -88,10 +64,29 @@ static void loop_paths(t_pipex *pipex, char *path, char *cmd)
 
 void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 {
-	char *path;
+	char 	*path;
+	int		i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '/')
+		{
+			pipex->command_paths[pipex->i] = first_word(cmd);
+			if (!access(pipex->command_paths[pipex->i], X_OK))
+			{
+				malloc_and_add_command_path(pipex);
+				return ;
+			}
+			else
+			{
+				printf("Directory/invalid command");
+				exit(1);
+			}
+		}
+		i++;
+	}
 	path = get_paths(envp);
-	// printf("path: %s\n", path);
 	loop_paths(pipex, path, cmd);
-	// Some logic to assign cmd_path[pipex->i] to the correct path
 	free(path);
 }
