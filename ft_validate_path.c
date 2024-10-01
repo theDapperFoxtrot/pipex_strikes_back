@@ -1,16 +1,13 @@
 #include "pipex.h"
 
-static int allocate_command_path(t_pipex *pipex)
+static void allocate_command_path(t_pipex *pipex)
 {
-    if (!pipex->command_paths)
+    if (!pipex->command_paths[pipex->i])
     {
-        pipex->command_paths = (char **)malloc(sizeof(char *) * pipex->command_count);
-        if (!pipex->command_paths) {
-            printf("Malloc failed for command_paths\n");
-            return (0);
-        }
+        pipex->command_paths[pipex->i] = (char *)malloc(sizeof(char) * sizeof(pipex->command_arguments[pipex->i]));
+        if (!pipex->command_paths[pipex->i])
+            error_exit(pipex, "Malloc failed for command_path of \n");
     }
-    return (1);
 }
 static int access_check(char *tmp, t_pipex *pipex)
 {
@@ -24,7 +21,7 @@ static int access_check(char *tmp, t_pipex *pipex)
         free(tmp); // Free tmp to avoid memory leaks if path is invalid
     return (0);
 }
-int validate_path(t_pipex *pipex, char **paths, char *command_name)
+int validate_path(t_pipex *pipex, char **paths, char *cmd)
 {
     char *tmp;
     int i;
@@ -32,14 +29,11 @@ int validate_path(t_pipex *pipex, char **paths, char *command_name)
     i = 0;
     while (paths[i])
     {
-        tmp = (char *)malloc(sizeof(char) * (ft_strlen(paths[i]) + ft_strlen(command_name) + 2)); // command_name, not cmd
+        tmp = (char *)malloc(sizeof(char) * (ft_strlen(paths[i]) + ft_strlen(cmd) + 2)); // command_name, not cmd
         if (!tmp)
-		{
-            printf("Malloc failed\n");
-            return (0); // Return 0 on failure to indicate command not found
-        }
+            error_exit(pipex, "Malloc failed\n");
         tmp = ft_strjoin(paths[i], "/");
-        tmp = ft_strjoin(tmp, command_name);
+        tmp = ft_strjoin(tmp, cmd);
         allocate_command_path(pipex);
         if (access_check(tmp, pipex) == 1)
             return (1);
