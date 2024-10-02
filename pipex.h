@@ -9,6 +9,7 @@
 
 typedef struct s_pipex
 {
+	int		argc;
 	int		infile;
 	int		outfile;
 	int     i; //track the current process (from 0)
