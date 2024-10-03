@@ -53,23 +53,29 @@ int ft_slash_check(char *cmd, t_pipex *pipex)
 void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 {
 	char 	*path;
+	char	**cmd_tokens;
 
-	if (!pipex->command_tokens)
-		pipex->command_tokens = (char ***)malloc(sizeof(char **) * (sizeof(pipex->command_tokens[pipex->i]) + 1));
-	pipex->command_tokens[pipex->i] = ft_split(cmd, ' ');
+	cmd_tokens = ft_split(cmd, ' ');
 	if (!pipex->command_paths)
 		pipex->command_paths = (char **)malloc(sizeof(char *) * (sizeof(pipex->command_paths[pipex->i]) + 1));
-	if (ft_slash_check(pipex->command_tokens[pipex->i][0], pipex))
+	if (ft_slash_check(cmd_tokens[0], pipex))
+	{
+		free(cmd_tokens);
 		return ;
+	}
 	path = get_paths(envp);
-	if (loop_paths(pipex, path, pipex->command_tokens[pipex->i][0]))
+	if (loop_paths(pipex, path, cmd_tokens[0]))
 	{
 		free(path);
+		free_split(cmd_tokens);
+		free(cmd_tokens);
 		return ;
 	}
 	else
 	{
 		free(path);
+		free_split(cmd_tokens);
+		free(cmd_tokens);
 		error_exit(pipex, "Command not found\n");
 	}
 }

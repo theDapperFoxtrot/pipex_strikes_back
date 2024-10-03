@@ -15,7 +15,6 @@ typedef struct s_pipex
 	int     i; //track the current process (from 0)
 	char    **command_arguments;
 	char 	**command_paths;
-	char	***command_tokens;
 	size_t  command_count;
 	pid_t   *pid;
 } t_pipex;
@@ -26,5 +25,6 @@ void		ft_parse_commands(t_pipex *pipex, char **envp, char *cmd);
 int			validate_path(t_pipex *pipex, char **paths, char *command_name);
 int			error_exit(t_pipex *pipex, char *msg);
 void		ft_cleanup(t_pipex *pipex);
+void		free_split(char **split_array);
 
 #endif

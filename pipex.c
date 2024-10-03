@@ -29,12 +29,10 @@ int main (int argc, char **argv, char **envp)
 		ft_parse_commands(&pipex, envp, pipex.command_arguments[pipex.i]);
 		pipex.i++;
 	}
-	pipex.command_tokens[pipex.i] = NULL;
 	pipex.command_paths[pipex.i] = NULL;
 	error_exit(&pipex, "Test\n");
-	// At this point I would like to loop through all the arrays in my struct to determine that the data is populated and null-terminated
-
-	// ft_parse_args(&pipex, argc, argv, envp);
+// At this point I would like to loop through all the arrays in my struct to determine that the data is populated and null-terminated
+// ft_parse_args(&pipex, argc, argv, envp);
 // while (cmds)
 // {
 // 	ft_exec();

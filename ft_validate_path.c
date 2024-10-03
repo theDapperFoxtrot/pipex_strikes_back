@@ -5,9 +5,6 @@ static int access_check(char *full_path, t_pipex *pipex)
 {
     if (!access(full_path, X_OK))
     {
-		pipex->command_paths[pipex->i] = (char *)malloc(sizeof(char) * ft_strlen(full_path) + 1);
-		if (!pipex->command_paths[pipex->i])
-			error_exit(pipex, "Malloc failed\n");
         pipex->command_paths[pipex->i] = ft_strdup(full_path); // Store the full path to the executable
         free(full_path); // Free the full_path variable as it's no longer needed
         return (1); // Path found and valid
