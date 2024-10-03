@@ -11,6 +11,8 @@ void    ft_cleanup(t_pipex *pipex)
             free(pipex->command_arguments[pipex->i]);
         pipex->i++;
     }
+    if (pipex->paths)
+        free_split(pipex->paths);
     free(pipex->command_paths);
     free(pipex->command_arguments);
     free(pipex->pid);

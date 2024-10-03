@@ -22,11 +22,9 @@ static char *get_paths(char **envp)
 static int loop_paths(t_pipex *pipex, char *path, char *cmd)
 {
 	char **paths;
-	int i;
 
-	i = 0;
 	paths = ft_split(path, ':');
-	if (!paths[i])
+	if (!paths)
 		error_exit(pipex, "PATH is empty\n");
 	return (validate_path(pipex, paths, cmd));
 }
@@ -57,7 +55,8 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 
 	cmd_tokens = ft_split(cmd, ' ');
 	if (!pipex->command_paths)
-		pipex->command_paths = (char **)malloc(sizeof(char *) * (sizeof(pipex->command_paths[pipex->i]) + 1));
+		pipex->command_paths = (char **)malloc(sizeof(char *) * (pipex->command_count + 1));
+	printf("cmd count = [%d]\n", pipex->command_count);
 	if (ft_slash_check(cmd_tokens[0], pipex))
 	{
 		free(cmd_tokens);
@@ -68,14 +67,12 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 	{
 		free(path);
 		free_split(cmd_tokens);
-		free(cmd_tokens);
 		return ;
 	}
 	else
 	{
 		free(path);
 		free_split(cmd_tokens);
-		free(cmd_tokens);
 		error_exit(pipex, "Command not found\n");
 	}
 }

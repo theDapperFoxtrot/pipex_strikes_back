@@ -5,8 +5,8 @@ static int access_check(char *full_path, t_pipex *pipex)
 {
     if (!access(full_path, X_OK))
     {
-        pipex->command_paths[pipex->i] = ft_strdup(full_path); // Store the full path to the executable
-        free(full_path); // Free the full_path variable as it's no longer needed
+        printf("increment = [%d]\n", pipex->i);
+        pipex->command_paths[pipex->i] = full_path; // Store the full path to the executable
         return (1); // Path found and valid
     }
     else
@@ -33,8 +33,12 @@ int validate_path(t_pipex *pipex, char **paths, char *cmd)
         if (!full_path)
             error_exit(pipex, "Malloc failed\n");
         if (access_check(full_path, pipex) == 1)
+        {
+            free_split(paths);
             return (1); // Path found and stored
+        }
         i++;
     }
+    free_split(paths);
     return (0); // No valid path found
 }

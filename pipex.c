@@ -15,6 +15,7 @@ int main (int argc, char **argv, char **envp)
 {
 	t_pipex pipex;
 
+	pipex.i = 0;
 	pipex.argc = argc;
     if (argc != 5)
     {
@@ -24,8 +25,9 @@ int main (int argc, char **argv, char **envp)
 	ft_init_pipex(&pipex, argc);
 	ft_check_args(&pipex, argc, argv);
 	pipex.i = 0;
-	while (pipex.i < (int) pipex.command_count)
+	while (pipex.i < pipex.command_count)
 	{
+		printf("error = [%s]\n\n",  pipex.command_arguments[pipex.i]);
 		ft_parse_commands(&pipex, envp, pipex.command_arguments[pipex.i]);
 		pipex.i++;
 	}
