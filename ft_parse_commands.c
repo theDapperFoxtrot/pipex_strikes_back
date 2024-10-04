@@ -18,8 +18,8 @@ static char *get_paths(char **envp)
 	}
 	return (path);
 }
-// This is where we loop through the paths to find the executable and store the full path to the executable in the command_paths array
-static int loop_paths(t_pipex *pipex, char *path, char *cmd)
+// This is where we loop through the paths to find the executable and store the full path to the executable in the command_arguments array
+static int loop_paths(t_pipex *pipex, char *path, char **cmd)
 {
 	char **paths;
 
@@ -47,23 +47,27 @@ int ft_slash_check(char *cmd, t_pipex *pipex)
 	}
 	return (0);
 }
-// Here is where we check if we were given a directory or simply the name of the executable where we then loop through the paths to find the executable and store the full path to the executable in the command_paths array
+
+void assign_command_paths(t_pipex *pipex, char **command_name)
+{
+	pipex->command_paths[pipex->i] = command_name[0];
+
+}
+// Here is where we check if we were given a directory or simply the name of the executable where we then loop through the paths to find the executable and store the full path to the executable in the command_arguments array
 void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 {
 	char 	*path;
 	char	**cmd_tokens;
 
 	cmd_tokens = ft_split(cmd, ' ');
-	if (!pipex->command_paths)
-		pipex->command_paths = (char **)malloc(sizeof(char *) * (pipex->command_count + 1));
-	printf("cmd count = [%d]\n", pipex->command_count);
 	if (ft_slash_check(cmd_tokens[0], pipex))
 	{
-		free(cmd_tokens);
+		pipex->command_paths[pipex->i] = pipex->command_arguments[pipex->i];
+		free_split(cmd_tokens);
 		return ;
 	}
 	path = get_paths(envp);
-	if (loop_paths(pipex, path, cmd_tokens[0]))
+	if (loop_paths(pipex, path, cmd_tokens))
 	{
 		free(path);
 		free_split(cmd_tokens);
