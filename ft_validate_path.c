@@ -34,7 +34,6 @@ void allocate_cmd_args(t_pipex *pipex, char *full_path)
 	cmd_tokens = ft_split(pipex->command_arguments[pipex->i], ' ');
 	if (!cmd_tokens)
 		error_exit(pipex, "Failed to allocate memory for cmd_tokens in access_check\n");
-	// arg_count = 
 	allocate_cmd_args_arrays(pipex, cmd_tokens);
 	while (cmd_tokens[i])
 	{

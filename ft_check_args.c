@@ -16,14 +16,9 @@ void ft_check_files(t_pipex *pipex, int argc, char **argv)
 
 void ft_check_commands(t_pipex *pipex, char **argv)
 {
-	pipex->command_arguments = (char **)malloc(sizeof(char *) * (pipex->command_count + 1));
-	if (!pipex->command_arguments)
-		error_exit(pipex, "Malloc failed\n");
 	while (pipex->i < pipex->command_count)
 	{
 		pipex->command_arguments[pipex->i] = ft_strdup(argv[2 + pipex->i]);
-		if (!access(argv[2 + pipex->i], X_OK))
-			error_exit(pipex, "Permission denied\n");
 		pipex->i++;
 	}
 	pipex->command_arguments[pipex->i] = NULL;
