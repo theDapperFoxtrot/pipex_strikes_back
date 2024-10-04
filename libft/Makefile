@@ -65,7 +65,7 @@ RM = rm -rf
 LIB = ranlib
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 OBJS = ${SRCS:.c=.o}
 

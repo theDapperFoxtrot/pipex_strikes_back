@@ -48,11 +48,6 @@ int ft_slash_check(char *cmd, t_pipex *pipex)
 	return (0);
 }
 
-void assign_command_paths(t_pipex *pipex, char **command_name)
-{
-	pipex->command_paths[pipex->i] = command_name[0];
-
-}
 // Here is where we check if we were given a directory or simply the name of the executable where we then loop through the paths to find the executable and store the full path to the executable in the command_arguments array
 void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 {
@@ -62,7 +57,7 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 	cmd_tokens = ft_split(cmd, ' ');
 	if (ft_slash_check(cmd_tokens[0], pipex))
 	{
-		pipex->command_paths[pipex->i] = pipex->command_arguments[pipex->i];
+		// pipex->command_paths[pipex->i] = pipex->command_arguments[pipex->i];
 		free_split(cmd_tokens);
 		return ;
 	}

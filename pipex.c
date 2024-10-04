@@ -15,11 +15,23 @@ int main (int argc, char **argv, char **envp)
 	while (pipex.i < pipex.command_count)
 	{
 		ft_parse_commands(&pipex, envp, pipex.command_arguments[pipex.i]);
-		printf("%s", pipex.command_arguments[pipex.i]);
 		pipex.i++;
 	}
 	pipex.i = 0;
-	printf("%d\n", pipex.argc);
+
+	// ----------------TESTING---------------------
+	int i = 0;
+	while (pipex.cmd_args1[i])
+	{
+		printf("%s \n", pipex.cmd_args1[i]);
+		i++;
+	}
+	i = 0;
+	while (pipex.cmd_args2[i])
+	{
+		printf("%s \n", pipex.cmd_args2[i]);
+		i++;
+	}
 	error_exit(&pipex, "Test\n");
 // At this point I would like to loop through all the arrays in my struct to determine that the data is populated and null-terminated
 // ft_parse_args(&pipex, argc, argv, envp);

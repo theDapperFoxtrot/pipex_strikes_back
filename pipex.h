@@ -14,8 +14,9 @@ typedef struct s_pipex
 	int		outfile;
 	int     i; //track the current process (from 0)
 	char    **command_arguments;
-	char	**command_paths;
-	char	**paths;
+	// char	**command_paths;
+	char	**cmd_args1;
+	char	**cmd_args2;
 	int  	command_count;
 	pid_t   *pid;
 } t_pipex;

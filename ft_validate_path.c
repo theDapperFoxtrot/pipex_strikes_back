@@ -14,11 +14,17 @@ static int access_check(char *full_path, t_pipex *pipex)
 			error_exit(pipex, "Failed to allocate memory for cmd_tokens in access_check\n");
 		while (cmd_tokens[i])
 		{
-			pipex->paths[i] = ft_strdup(cmd_tokens[i]);
+			if (pipex->i == 0)
+				pipex->cmd_args1[i] = ft_strdup(cmd_tokens[i]); //THIS NEEDS NULL TERMINATION
+			else
+				pipex->cmd_args2[i] = ft_strdup(cmd_tokens[i]); //THIS NEEDS NULL TERMINATION
 			i++;
 		}
 		free_split(cmd_tokens);
-		pipex->paths[0] = ft_strdup(full_path); // Store the full path to the executable
+		if (pipex->i == 0)
+			pipex->cmd_args1[0] = ft_strdup(full_path); // Store the full path to the executable
+		else
+			pipex->cmd_args2[0] = ft_strdup(full_path); // Store the full path to the executable
 		free(full_path);
 		return (1); // Path found and valid
 	}
@@ -48,7 +54,6 @@ int validate_path(t_pipex *pipex, char **paths, char **cmd)
 		if (access_check(full_path, pipex) == 1)
 		{
 			free_split(paths);
-			free(full_path);
 			return (1); // Path found and stored
 		}
 		i++;
