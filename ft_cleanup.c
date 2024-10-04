@@ -7,20 +7,22 @@ void    ft_cleanup(t_pipex *pipex)
 	{
 		if (pipex->command_arguments[pipex->i])
 			free(pipex->command_arguments[pipex->i]);
-		// if (pipex->command_paths[pipex->i])
-		// 	free(pipex->command_paths[pipex->i]);
 		if (pipex->cmd_args1[pipex->i])
 			free(pipex->cmd_args1[pipex->i]);
 		if (pipex->cmd_args2[pipex->i])
 			free(pipex->cmd_args2[pipex->i]);
 		pipex->i++;
 	}
-	free(pipex->command_arguments);
-	// free(pipex->command_paths);
-	free(pipex->cmd_args1);
-	free(pipex->cmd_args2);
-	free(pipex->pid);
+	if (pipex->command_arguments)
+		free(pipex->command_arguments);
+	if (pipex->cmd_args1)
+		free(pipex->cmd_args1);
+	if (pipex->cmd_args2)
+		free(pipex->cmd_args2);
+	if (pipex->pid)
+		free(pipex->pid);
 }
+
 void    free_split(char **split_array)
 {
 	int i = 0;

@@ -16,10 +16,4 @@ void ft_init_pipex(t_pipex *pipex, int argc)
 	pipex->command_arguments = (char **)malloc(sizeof(char *) * pipex->command_count);
 	if (!pipex->command_arguments)
 		error_exit(pipex, "Failed to allocate memory for command_arguments\n");
-	pipex->cmd_args1 = (char **)malloc(sizeof(char *) * pipex->command_count); //THIS IS THE WRONG SIZE
-	if (!pipex->cmd_args1)
-		error_exit(pipex, "Failed to allocate memory for cmd_args1\n");
-	pipex->cmd_args2 = (char **)malloc(sizeof(char *) * pipex->command_count); //THIS IS THE WRONG SIZE
-	if (!pipex->cmd_args2)
-		error_exit(pipex, "Failed to allocate memory for cmd_args2\n");
 }
