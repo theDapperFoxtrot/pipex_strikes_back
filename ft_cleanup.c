@@ -19,8 +19,6 @@ void    ft_cleanup(t_pipex *pipex)
 		free(pipex->cmd_args1);
 	if (pipex->cmd_args2)
 		free(pipex->cmd_args2);
-	// if (pipex->pid)
-	// 	free(pipex->pid);
 }
 
 void    free_split(char **split_array)
@@ -32,21 +30,4 @@ void    free_split(char **split_array)
 		i++;
 	}
 	free(split_array);
-}
-void	ft_free_substrings(char ***arr_str)
-{
-	int	i;
-
-	i = 0;
-	while ((*arr_str)[i] != NULL)
-	{
-		free((*arr_str)[i]);
-		(*arr_str)[i] = NULL;
-		i++;
-	}
-	if ((*arr_str) != NULL)
-	{
-		free((*arr_str));
-		(*arr_str) = NULL;
-	}
 }
