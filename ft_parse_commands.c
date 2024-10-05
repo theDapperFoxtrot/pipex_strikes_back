@@ -38,10 +38,15 @@ int ft_slash_check(char *cmd, t_pipex *pipex)
 	{
 		if (cmd[i] == '/')
 		{
-			if (!access(cmd, X_OK))
-				return (1);
+			if (!access(cmd, F_OK))
+			{
+				if (!access(cmd, X_OK))
+					return (1);
+				else
+					error_exit(pipex, "Permission denied\n");
+			}
 			else
-				error_exit(pipex, "Directory/invalid command");
+				error_exit(pipex, "No such file or directory \n");
 		}
 		i++;
 	}
@@ -53,33 +58,37 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 {
 	char 	*path;
 	char	**cmd_tokens;
-	// int		arg_count;
+	int		arg_count;
 
-	// arg_count = 0;
+	arg_count = 0;
+	if (cmd)
+		printf("haha");
 	cmd_tokens = ft_split(cmd, ' ');
+	//tip from armin. handle leak failure from split
 	if (ft_slash_check(cmd_tokens[0], pipex))
 	{
-		// if (pipex->i == 0)
-		// {
-		// 	while (cmd_tokens[arg_count])
-		// 		arg_count++;
-		// 	pipex->cmd_args1 = (char **)malloc(sizeof(char *) * arg_count + 1);
-		// 	if (!pipex->cmd_args1)
-		// 		error_exit(pipex, "Failed to allocate memory for cmd_args1\n");
-		// 	pipex->cmd_args1 = cmd_tokens;
-		// 	pipex->cmd_args1[arg_count] = NULL;
-		// }
-		// else
-		// {
-		// 	while (cmd_tokens[arg_count])
-		// 		arg_count++;
-		// 	pipex->cmd_args2 = (char **)malloc(sizeof(char *) * arg_count + 1);
-		// 	if (!pipex->cmd_args2)
-		// 		error_exit(pipex, "Failed to allocate memory for cmd_args2\n");
-		// 	pipex->cmd_args2 = cmd_tokens;
-		// 	pipex->cmd_args2[arg_count] = NULL;
-		// }
-		free_split(cmd_tokens);
+		if (pipex->i == 0)
+		{
+			while (cmd_tokens[arg_count])
+				arg_count++;
+			pipex->cmd_args1 = (char **)malloc(sizeof(char *) * arg_count + 1);
+			if (!pipex->cmd_args1)
+				error_exit(pipex, "Failed to allocate memory for cmd_args1\n");
+			pipex->cmd_args1 = cmd_tokens;
+			free_split(cmd_tokens);
+			pipex->cmd_args1[arg_count] = NULL;
+		}
+		else
+		{
+			while (cmd_tokens[arg_count])
+				arg_count++;
+			pipex->cmd_args2 = (char **)malloc(sizeof(char *) * arg_count + 1);
+			if (!pipex->cmd_args2)
+				error_exit(pipex, "Failed to allocate memory for cmd_args2\n");
+			pipex->cmd_args2 = cmd_tokens;
+			free_split(cmd_tokens);
+			pipex->cmd_args2[arg_count] = NULL;
+		}
 		return ;
 	}
 	path = get_paths(envp);

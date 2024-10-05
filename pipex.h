@@ -28,5 +28,6 @@ int			validate_path(t_pipex *pipex, char **paths, char **cmd);
 int			error_exit(t_pipex *pipex, char *msg);
 void		ft_cleanup(t_pipex *pipex);
 void		free_split(char **split_array);
+void	ft_free_substrings(char ***arr_str);
 
 #endif
