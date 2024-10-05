@@ -19,8 +19,8 @@ void    ft_cleanup(t_pipex *pipex)
 		free(pipex->cmd_args1);
 	if (pipex->cmd_args2)
 		free(pipex->cmd_args2);
-	if (pipex->pid)
-		free(pipex->pid);
+	// if (pipex->pid)
+	// 	free(pipex->pid);
 }
 
 void    free_split(char **split_array)

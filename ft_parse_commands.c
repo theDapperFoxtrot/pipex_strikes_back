@@ -59,10 +59,11 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 	char 	*path;
 	char	**cmd_tokens;
 	int		arg_count;
+	int		i;
 
 	arg_count = 0;
+	i = 0;
 	if (cmd)
-		printf("haha");
 	cmd_tokens = ft_split(cmd, ' ');
 	//tip from armin. handle leak failure from split
 	if (ft_slash_check(cmd_tokens[0], pipex))
@@ -74,9 +75,12 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 			pipex->cmd_args1 = (char **)malloc(sizeof(char *) * arg_count + 1);
 			if (!pipex->cmd_args1)
 				error_exit(pipex, "Failed to allocate memory for cmd_args1\n");
-			pipex->cmd_args1 = cmd_tokens;
+			while (i < arg_count)
+			{
+				pipex->cmd_args1[i] = ft_strdup(cmd_tokens[i]);
+				i++;
+			}
 			free_split(cmd_tokens);
-			pipex->cmd_args1[arg_count] = NULL;
 		}
 		else
 		{
@@ -85,9 +89,12 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 			pipex->cmd_args2 = (char **)malloc(sizeof(char *) * arg_count + 1);
 			if (!pipex->cmd_args2)
 				error_exit(pipex, "Failed to allocate memory for cmd_args2\n");
-			pipex->cmd_args2 = cmd_tokens;
+			while (i < arg_count)
+			{
+				pipex->cmd_args2[i] = ft_strdup(cmd_tokens[i]);
+				i++;
+			}
 			free_split(cmd_tokens);
-			pipex->cmd_args2[arg_count] = NULL;
 		}
 		return ;
 	}

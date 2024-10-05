@@ -14,11 +14,11 @@ typedef struct s_pipex
 	int		outfile;
 	int     i; //track the current process (from 0)
 	char    **command_arguments;
-	// char	**command_paths;
 	char	**cmd_args1;
 	char	**cmd_args2;
 	int  	command_count;
-	pid_t   *pid;
+	int		fd[2];
+	pid_t   pid;
 } t_pipex;
 
 void		ft_init_pipex(t_pipex *pipex, int argc);
@@ -28,6 +28,5 @@ int			validate_path(t_pipex *pipex, char **paths, char **cmd);
 int			error_exit(t_pipex *pipex, char *msg);
 void		ft_cleanup(t_pipex *pipex);
 void		free_split(char **split_array);
-void	ft_free_substrings(char ***arr_str);
 
 #endif
