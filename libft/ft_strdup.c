@@ -6,24 +6,28 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:47:48 by smishos           #+#    #+#             */
-/*   Updated: 2024/04/27 15:58:44 by smishos          ###   ########.fr       */
+/*   Updated: 2024/10/06 18:38:17 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// duplicate the string, allocating space for it memory
-char	*ft_strdup(const char *s)
+char    *ft_strdup(const char *src)
 {
-	size_t	len;
-	char	*new_str;
-// find the length of the source, allocate the memory given the size of the string
-	len = ft_strlen(s);
-	new_str = (char *)ft_calloc(len + 1, sizeof(char));
-// test if the allocation is successful, and if so, you can copy the source to dest
-	if (new_str)
-		ft_memcpy(new_str, s, len);
-	return (new_str);
+    char    *dup;
+    size_t    i;
+
+    i = 0;
+    dup = (char *)malloc(sizeof(*src) * (ft_strlen(src) + 1));
+    if (!dup)
+        return (NULL);
+    while (src[i])
+    {
+        dup[i] = src[i];
+        i++;
+    }
+    dup[i] = '\0';
+    return (dup);
 }
 
 // you will need a custom main for this, and exclude the main from ft_memcpy.c

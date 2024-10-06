@@ -65,7 +65,8 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 	i = 0;
 	if (cmd)
 	cmd_tokens = ft_split(cmd, ' ');
-	//tip from armin. handle leak failure from split
+	if (!cmd_tokens)
+		error_exit(pipex, "Failed to split commands into tokens\n");
 	if (ft_slash_check(cmd_tokens[0], pipex))
 	{
 		if (pipex->i == 0)

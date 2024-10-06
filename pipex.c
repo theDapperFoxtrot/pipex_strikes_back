@@ -24,14 +24,16 @@ int main (int argc, char **argv, char **envp)
 
 	while (pipex.i < pipex.command_count)
 	{
-		pipex.pid = (pid_t) fork();
-		if (pipex.pid < 0)
+		pipex.pid[pipex.i] = (pid_t) fork();
+		if (pipex.pid[pipex.i] < 0)
 			error_exit(&pipex, "Fork was unsuccessful");
 		if (pipex.pid == 0 && pipex.i == 0)
 		{
 			close(pipex.fd[0]);
+			close(pipex.outfile);
 			// printf("Hello, I am child processs #%d\n", pipex.i + 1);
 			dup2(pipex.infile, STDIN_FILENO);
+			close(pipex.infile);
 			dup2(pipex.fd[1], STDOUT_FILENO);
 			close(pipex.fd[1]);
 			execve(pipex.cmd_args1[0], pipex.cmd_args1, envp);
@@ -40,19 +42,32 @@ int main (int argc, char **argv, char **envp)
 		if (pipex.pid == 0 && pipex.i == 1)
 		{
 			close(pipex.fd[1]);
+			close(pipex.infile);
 			// printf("Hello, I am child processs #%d\n", pipex.i + 1);
 			dup2(pipex.fd[0], STDIN_FILENO);
 			dup2(pipex.outfile, STDOUT_FILENO);
+			close(pipex.outfile);
 			close(pipex.fd[0]);
 			execve(pipex.cmd_args2[0], pipex.cmd_args2, envp);
 			error_exit(&pipex, "Execve failed for cmd2\n");
 		}
 		pipex.i++;
 	}
+	close(pipex.infile);
+	close(pipex.outfile);
 	close(pipex.fd[0]);
 	close(pipex.fd[1]);
-	wait(NULL);
-	wait(NULL);
+	// pipex.i = 0;
+	// int status;
+
+	// while (waitpid(pipex.pid[pipex.i], &status, 0) > 0)
+	// {
+	// 	pipex.i++;
+	// }
+	// printf("%d\n", status);
+	// wait(NULL);
+	// wait(NULL);
+	ft_cleanup(&pipex);
 	return (0);
 	// error_exit(&pipex, "<<<pipex successful>>>\n");
 	// 	ft_exec1();

@@ -18,7 +18,7 @@ typedef struct s_pipex
 	char	**cmd_args2;
 	int  	command_count;
 	int		fd[2];
-	pid_t   pid;
+	pid_t   pid[2];
 } t_pipex;
 
 void		ft_init_pipex(t_pipex *pipex, int argc);
