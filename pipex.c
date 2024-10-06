@@ -53,7 +53,8 @@ int main (int argc, char **argv, char **envp)
 	close(pipex.fd[1]);
 	wait(NULL);
 	wait(NULL);
-	error_exit(&pipex, "<<<pipex successful>>>\n");
+	return (0);
+	// error_exit(&pipex, "<<<pipex successful>>>\n");
 	// 	ft_exec1();
 	// 	ft_exec2();
 

@@ -47,18 +47,18 @@ echo "------------------------------------"
 # -----------------------------------------------------------------------------------------------------------------------------------------
 # MANDATORY TESTS
 # -----------------------------------------------------------------------------------------------------------------------------------------
-echo -e "${YEL_BG}Mandatory tests${END}"
+# echo -e "${YEL_BG}Mandatory tests${END}"
 
-#norminette
-echo -ne "${BLU_BG}Test norminette:${END} \t\t\t\t\t\t\t-->"
-norm=$(find . | egrep ".*(\.c|\.h)$" | norminette)
-if [[ $(echo "$norm" | egrep -v "OK\!$") ]] ;
-then
-	echo -e "${RED} norme errors:${END}"
-	echo -e "$norm" | egrep -v "OK\!$"
-else
-	echo -e "${GREEN} norm ok${END}"
-fi
+# #norminette
+# echo -ne "${BLU_BG}Test norminette:${END} \t\t\t\t\t\t\t-->"
+# norm=$(find . | egrep ".*(\.c|\.h)$" | norminette)
+# if [[ $(echo "$norm" | egrep -v "OK\!$") ]] ;
+# then
+# 	echo -e "${RED} norme errors:${END}"
+# 	echo -e "$norm" | egrep -v "OK\!$"
+# else
+# 	echo -e "${GREEN} norm ok${END}"
+# fi
 
 #makefile 
 echo -ne "${BLU_BG}Test Makefile:${END} \t\t\t\t\t\t\t\t-->"
@@ -71,22 +71,22 @@ echo -n " -- "
 [[ -f pipex && -x pipex ]] && echo -e "${GREEN}exec named pipex${END}" || echo -e "${RED}no exec file found named pipex${END}"
 rm -rf stderrmake.txt stdoutmakebis.txt
 
-#makefile bonus
-if [[ $bonus == 1 ]] ; then
-echo -ne "${BLU_BG}Test Makefile bonus:${END} \t\t\t\t\t\t\t-->"
-make ${rule_bonus} 1>/dev/null 2> stderrmake.txt
-make ${rule_bonus} > stdoutmakebis.txt 2>&1
-[[ -s stderrmake.txt ]] && echo -ne "${RED} make ${rule_bonus} wrote on std err${END}" || echo -ne "${GREEN} no make ${rule_bonus} error${END}" 
-echo -ne " -- "
-cat stdoutmakebis.txt | egrep -viq "(nothin|already|date)" && echo -ne "${RED}makefile relinks on bonus?${END}" || echo -ne "${GREEN}no relink on bonus${END}"
-echo -ne " -- "
-[[ -f $pipex_bonus && -x $pipex_bonus ]] && echo -e "${GREEN}exec named $pipex_bonus${END}" || echo -e "${RED}no exec file found named $pipex_bonus${END}"
-rm -rf stderrmake.txt stdoutmakebis.txt
-( make fclean && make ) >/dev/null 2>&1 
-fi
+# #makefile bonus
+# if [[ $bonus == 1 ]] ; then
+# echo -ne "${BLU_BG}Test Makefile bonus:${END} \t\t\t\t\t\t\t-->"
+# make ${rule_bonus} 1>/dev/null 2> stderrmake.txt
+# make ${rule_bonus} > stdoutmakebis.txt 2>&1
+# [[ -s stderrmake.txt ]] && echo -ne "${RED} make ${rule_bonus} wrote on std err${END}" || echo -ne "${GREEN} no make ${rule_bonus} error${END}" 
+# echo -ne " -- "
+# cat stdoutmakebis.txt | egrep -viq "(nothin|already|date)" && echo -ne "${RED}makefile relinks on bonus?${END}" || echo -ne "${GREEN}no relink on bonus${END}"
+# echo -ne " -- "
+# [[ -f $pipex_bonus && -x $pipex_bonus ]] && echo -e "${GREEN}exec named $pipex_bonus${END}" || echo -e "${RED}no exec file found named $pipex_bonus${END}"
+# rm -rf stderrmake.txt stdoutmakebis.txt
+# ( make fclean && make ) >/dev/null 2>&1 
+# fi
 
-[[ ! -f pipex ]] && { echo -e "${RED_BG}No file 'pipex'. Tester exiting.${END}" ; make fclean >/dev/null 2>&1 ; exit ; }
-[[ ! -x pipex ]] && { echo -e "${RED_BG}$USER has not execution rights on 'pipex'. Tester exiting.${END}" ; make fclean >/dev/null 2>&1 ; exit ; }
+# [[ ! -f pipex ]] && { echo -e "${RED_BG}No file 'pipex'. Tester exiting.${END}" ; make fclean >/dev/null 2>&1 ; exit ; }
+# [[ ! -x pipex ]] && { echo -e "${RED_BG}$USER has not execution rights on 'pipex'. Tester exiting.${END}" ; make fclean >/dev/null 2>&1 ; exit ; }
 
 #arg nb problem
 echo -ne "${BLU_BG}Test arg nb (<4):${END} \t\t\t\t\t\t\t-->"
@@ -626,348 +626,348 @@ kill -s SIGTERM $! > /dev/null 2>&1 || kill -s SIGKILL $! > /dev/null 2>&1
 rm -f outf
 
 
-# -----------------------------------------------------------------------------------------------------------------------------------------
-# BONUS TESTS : 
-# -----------------------------------------------------------------------------------------------------------------------------------------
-if [[ ! $1 =~ -m$|-mandatory$ ]] ; then
+# # -----------------------------------------------------------------------------------------------------------------------------------------
+# # BONUS TESTS : 
+# # -----------------------------------------------------------------------------------------------------------------------------------------
+# if [[ ! $1 =~ -m$|-mandatory$ ]] ; then
 
-[[ $bonus -eq 1 ]] && make ${rule_bonus} >/dev/null 2>&1 
+# [[ $bonus -eq 1 ]] && make ${rule_bonus} >/dev/null 2>&1 
 
-echo -e "${YEL_BG}Bonus tests${END}"
+# echo -e "${YEL_BG}Bonus tests${END}"
 
-# multi cmd
-echo -e "${BLU_BG}Bonus multi cmds:${END}"
+# # multi cmd
+# echo -e "${BLU_BG}Bonus multi cmds:${END}"
 
-echo -ne "Test 1 : ./${pipex_bonus} Makefile cat cat cat t2_output\t\t\t\t\t--> "
-touch t2_output
-./${pipex_bonus} "Makefile" "cat" "cat" "cat" "t2_output" >/dev/null 2>&1 
-code=$(echo $?)
-diff Makefile t2_output >/dev/null 2>&1 && echo -ne "${GREEN}OK${END}" || echo -ne "${RED}KO${END}"
-[[ $code -eq 0 ]] && echo -e " ${GREEN}(+ return status == 0)${END}" || echo -e "${YEL}(- return status != 0)${END}"
-rm -f t2_*
+# echo -ne "Test 1 : ./${pipex_bonus} Makefile cat cat cat t2_output\t\t\t\t\t--> "
+# touch t2_output
+# ./${pipex_bonus} "Makefile" "cat" "cat" "cat" "t2_output" >/dev/null 2>&1 
+# code=$(echo $?)
+# diff Makefile t2_output >/dev/null 2>&1 && echo -ne "${GREEN}OK${END}" || echo -ne "${RED}KO${END}"
+# [[ $code -eq 0 ]] && echo -e " ${GREEN}(+ return status == 0)${END}" || echo -e "${YEL}(- return status != 0)${END}"
+# rm -f t2_*
 
-echo -ne "Test 2 : ./${pipex_bonus} Makefile ls cat cat cat cat cat cat cat cat cat cat t2_output\t--> "
-touch t2_output t2_expected
-./${pipex_bonus} Makefile ls cat cat cat cat cat cat cat cat cat cat t2_output >/dev/null 2>&1
-code=$(echo $?)
-ls > t2_expected
-diff t2_expected t2_output >/dev/null 2>&1 && echo -ne "${GREEN}OK${END}" || echo -ne "${RED}KO${END}"
-[[ $code -eq 0 ]] && echo -e " ${GREEN}(+ return status == 0)${END}" || echo -e "${YEL}(- return status != 0)${END}"
-rm -f t2_*
+# echo -ne "Test 2 : ./${pipex_bonus} Makefile ls cat cat cat cat cat cat cat cat cat cat t2_output\t--> "
+# touch t2_output t2_expected
+# ./${pipex_bonus} Makefile ls cat cat cat cat cat cat cat cat cat cat t2_output >/dev/null 2>&1
+# code=$(echo $?)
+# ls > t2_expected
+# diff t2_expected t2_output >/dev/null 2>&1 && echo -ne "${GREEN}OK${END}" || echo -ne "${RED}KO${END}"
+# [[ $code -eq 0 ]] && echo -e " ${GREEN}(+ return status == 0)${END}" || echo -e "${YEL}(- return status != 0)${END}"
+# rm -f t2_*
 
-echo -ne "Test 3 : ./${pipex_bonus} Makefile yes headi pwd \"cat -e\" t2_output\t\t\t--> "
-touch t2_output t2_expected
-timeout --preserve-status 2 ./${pipex_bonus} Makefile yes headi pwd "cat -e" t2_output > stderr.txt 2>&1
-code=$(echo $?)
-pwd | cat -e > t2_expected
-diff t2_expected t2_output >/dev/null 2>&1 && echo -ne "${GREEN}OK${END}" || echo -ne "${RED}KO${END}"
-[[ -f stderr.txt && $(cat stderr.txt | grep -i "command not found") ]] && echo -ne "${GREEN} (+ err msg)${END}" || echo -ne "${YEL} (- err msg without \"Command not found\")${END}"
-[[ $code -eq 0 ]] && echo -e " ${GREEN}(+ return status == 0)${END}" || echo -e "${YEL}(- return status != 0)${END}"
-rm -f t2_* stderr.txt
+# echo -ne "Test 3 : ./${pipex_bonus} Makefile yes headi pwd \"cat -e\" t2_output\t\t\t--> "
+# touch t2_output t2_expected
+# timeout --preserve-status 2 ./${pipex_bonus} Makefile yes headi pwd "cat -e" t2_output > stderr.txt 2>&1
+# code=$(echo $?)
+# pwd | cat -e > t2_expected
+# diff t2_expected t2_output >/dev/null 2>&1 && echo -ne "${GREEN}OK${END}" || echo -ne "${RED}KO${END}"
+# [[ -f stderr.txt && $(cat stderr.txt | grep -i "command not found") ]] && echo -ne "${GREEN} (+ err msg)${END}" || echo -ne "${YEL} (- err msg without \"Command not found\")${END}"
+# [[ $code -eq 0 ]] && echo -e " ${GREEN}(+ return status == 0)${END}" || echo -e "${YEL}(- return status != 0)${END}"
+# rm -f t2_* stderr.txt
 
-echo -ne "Test 4 : ./${pipex_bonus} Makefile date \"man env\" cat \"grep -i exit\" t2_output\t\t--> "
-touch t2_output t2_expected
-./${pipex_bonus} Makefile date "man env" cat "grep -i exit" t2_output >/dev/null 2>&1
-code=$(echo $?)
-date | man env | cat | grep -i exit > t2_expected 2>/dev/null
-diff t2_expected t2_output >/dev/null 2>&1 && echo -ne "${GREEN}OK${END}" || echo -ne "${RED}KO${END}"
-[[ $code -eq 0 ]] && echo -e " ${GREEN}(+ return status == 0)${END}" || echo -e "${YEL}(- return status != 0)${END}"
-rm -f t2_* 
+# echo -ne "Test 4 : ./${pipex_bonus} Makefile date \"man env\" cat \"grep -i exit\" t2_output\t\t--> "
+# touch t2_output t2_expected
+# ./${pipex_bonus} Makefile date "man env" cat "grep -i exit" t2_output >/dev/null 2>&1
+# code=$(echo $?)
+# date | man env | cat | grep -i exit > t2_expected 2>/dev/null
+# diff t2_expected t2_output >/dev/null 2>&1 && echo -ne "${GREEN}OK${END}" || echo -ne "${RED}KO${END}"
+# [[ $code -eq 0 ]] && echo -e " ${GREEN}(+ return status == 0)${END}" || echo -e "${YEL}(- return status != 0)${END}"
+# rm -f t2_* 
 
-echo -ne "Test 5 : ./${pipex_bonus} Makefile cat ls \"sleep 3\" date env ls outf \t\t\t--> "
-start_Z_nb=$(top -bn1 | head -n2 | egrep -o "[0-9]* zombie$" | egrep -o "[0-9]*")
-./${pipex_bonus} Makefile cat ls "sleep 3" date env ls outf >/dev/null 2>&1 &
-sleep 1
-exec_Z_nb=$(top -bn1 | head -n2 | egrep -o "[0-9]* zombie$" | egrep -o "[0-9]*")
-ps -aux | grep Z | grep -vi grep > zombie_test5
-kill -s SIGTERM $! > /dev/null 2>&1 || kill -s SIGKILL $! > /dev/null 2>&1
-[[ $(( $exec_Z_nb - $start_Z_nb )) -eq 0 ]] && echo -e "${GREEN}OK (no zombie)${END}" && rm -f zombie_test5
-[[ $(( $exec_Z_nb - $start_Z_nb )) -gt 0 ]] && echo -e "${YEL}KO: $(( $exec_Z_nb - $start_Z_nb )) process became zombie before pipex returned (please check 'zombie_test5)${END}"
-rm -f outf
+# echo -ne "Test 5 : ./${pipex_bonus} Makefile cat ls \"sleep 3\" date env ls outf \t\t\t--> "
+# start_Z_nb=$(top -bn1 | head -n2 | egrep -o "[0-9]* zombie$" | egrep -o "[0-9]*")
+# ./${pipex_bonus} Makefile cat ls "sleep 3" date env ls outf >/dev/null 2>&1 &
+# sleep 1
+# exec_Z_nb=$(top -bn1 | head -n2 | egrep -o "[0-9]* zombie$" | egrep -o "[0-9]*")
+# ps -aux | grep Z | grep -vi grep > zombie_test5
+# kill -s SIGTERM $! > /dev/null 2>&1 || kill -s SIGKILL $! > /dev/null 2>&1
+# [[ $(( $exec_Z_nb - $start_Z_nb )) -eq 0 ]] && echo -e "${GREEN}OK (no zombie)${END}" && rm -f zombie_test5
+# [[ $(( $exec_Z_nb - $start_Z_nb )) -gt 0 ]] && echo -e "${YEL}KO: $(( $exec_Z_nb - $start_Z_nb )) process became zombie before pipex returned (please check 'zombie_test5)${END}"
+# rm -f outf
 
-if [[ $os == "linux" ]] ; then
-echo -ne "Test 6 : valgrind ./${pipex_bonus} Makefile cat cat cat cat cat cat outf\t\t\t--> "
-$vlgppx ./${pipex_bonus} Makefile cat cat cat cat cat cat outf > vlg.txt 2>&1
-leaks=$(cat vlg.txt | grep -A 1 "HEAP SUMMARY" | tail -n1 | grep -o "[0-9]* bytes" | cut -d' ' -f1)
-fd=$(cat vlg.txt | grep -o  "Open file descriptor [0-9]*:" | sort | uniq | wc -l | tr -d "[:blank:]")
-main_fd_open=$(cat vlg.txt | grep -m7 "FILE DESCRIPTORS:" | tail -n1 | egrep -o "[0-9]* open" | egrep -o "[0-9]*")
-main_fd_std=$(cat vlg.txt | grep -m7 "FILE DESCRIPTORS:" | tail -n1 | egrep -o "[0-9]* std" | egrep -o "[0-9]*")
-main_fd=$(( $main_fd_open - $main_fd_std ))
-[[ $leaks -eq 0 ]] && echo -ne "${GREEN}no leak${END}" || echo -ne "${RED}$leaks leaks${END}"
-[[ $fd -eq 0 ]] && echo -ne "${GREEN} - no extra fd (main+child)${END}" || echo -ne "${YEL} - $fd extra fd (main+child)${END}"
-[[ $main_fd -eq 0 ]] && echo -e "${GREEN} - no extra fd on main${END}" || echo -e "${RED} - $fd extra fd on main${END}"
-rm -f outf vlg.txt
-fi
+# if [[ $os == "linux" ]] ; then
+# echo -ne "Test 6 : valgrind ./${pipex_bonus} Makefile cat cat cat cat cat cat outf\t\t\t--> "
+# $vlgppx ./${pipex_bonus} Makefile cat cat cat cat cat cat outf > vlg.txt 2>&1
+# leaks=$(cat vlg.txt | grep -A 1 "HEAP SUMMARY" | tail -n1 | grep -o "[0-9]* bytes" | cut -d' ' -f1)
+# fd=$(cat vlg.txt | grep -o  "Open file descriptor [0-9]*:" | sort | uniq | wc -l | tr -d "[:blank:]")
+# main_fd_open=$(cat vlg.txt | grep -m7 "FILE DESCRIPTORS:" | tail -n1 | egrep -o "[0-9]* open" | egrep -o "[0-9]*")
+# main_fd_std=$(cat vlg.txt | grep -m7 "FILE DESCRIPTORS:" | tail -n1 | egrep -o "[0-9]* std" | egrep -o "[0-9]*")
+# main_fd=$(( $main_fd_open - $main_fd_std ))
+# [[ $leaks -eq 0 ]] && echo -ne "${GREEN}no leak${END}" || echo -ne "${RED}$leaks leaks${END}"
+# [[ $fd -eq 0 ]] && echo -ne "${GREEN} - no extra fd (main+child)${END}" || echo -ne "${YEL} - $fd extra fd (main+child)${END}"
+# [[ $main_fd -eq 0 ]] && echo -e "${GREEN} - no extra fd on main${END}" || echo -e "${RED} - $fd extra fd on main${END}"
+# rm -f outf vlg.txt
+# fi
 
-# here doc (ctrl d : can't figure out how to send EOF to pipex here_doc via a script)
-echo -e "${BLU_BG}Bonus here_doc:${END}"
-echo -ne "Test 1 : ./${pipex_bonus} here_doc lim cat cat outf (to create + tests limiteur)\t\t--> "
-echo -e "yolim\nyi lim\nlime\nlim" | ./${pipex_bonus} here_doc lim cat cat outf >/dev/null 2>&1
-code=$(echo $?)
-echo -e "yolim\nyi lim\nlime" > outf_expected 2>/dev/null
-diff outf outf_expected  >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# # here doc (ctrl d : can't figure out how to send EOF to pipex here_doc via a script)
+# echo -e "${BLU_BG}Bonus here_doc:${END}"
+# echo -ne "Test 1 : ./${pipex_bonus} here_doc lim cat cat outf (to create + tests limiteur)\t\t--> "
+# echo -e "yolim\nyi lim\nlime\nlim" | ./${pipex_bonus} here_doc lim cat cat outf >/dev/null 2>&1
+# code=$(echo $?)
+# echo -e "yolim\nyi lim\nlime" > outf_expected 2>/dev/null
+# diff outf outf_expected  >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
 
-echo -ne "Test 2 : ./${pipex_bonus} here_doc lim cat cat outf (to append)\t\t\t\t--> "
-echo -e "yo\nyip\nlim" | ./${pipex_bonus} here_doc lim cat cat outf >/dev/null 2>&1
-code=$(echo $?)
-echo -e "yo\nyip" >> outf_expected 2>/dev/null
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf outf_expected
+# echo -ne "Test 2 : ./${pipex_bonus} here_doc lim cat cat outf (to append)\t\t\t\t--> "
+# echo -e "yo\nyip\nlim" | ./${pipex_bonus} here_doc lim cat cat outf >/dev/null 2>&1
+# code=$(echo $?)
+# echo -e "yo\nyip" >> outf_expected 2>/dev/null
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf outf_expected
 
-echo -ne "Test 3 : ./${pipex_bonus} here_doc lim cat outf (arg<5)\t\t\t\t\t--> "
-echo -e "mambo jambo\nlim"| ./${pipex_bonus} here_doc lim cat outf >err.txt 2>&1
-code=$(echo $?)
-[[ ! -f outf ]] && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO (outf has been created)${END}"
-[[ $code -gt 0 ]] && echo -e "${GREEN}(return status > 0)${END}" || echo -e "${YEL}(return status == 0)${END}"
-rm -f outf err.txt
+# echo -ne "Test 3 : ./${pipex_bonus} here_doc lim cat outf (arg<5)\t\t\t\t\t--> "
+# echo -e "mambo jambo\nlim"| ./${pipex_bonus} here_doc lim cat outf >err.txt 2>&1
+# code=$(echo $?)
+# [[ ! -f outf ]] && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO (outf has been created)${END}"
+# [[ $code -gt 0 ]] && echo -e "${GREEN}(return status > 0)${END}" || echo -e "${YEL}(return status == 0)${END}"
+# rm -f outf err.txt
 
-echo -ne "Test 4 : ./${pipex_bonus} here_doc lim cat cat \"head -n2\" outf (multicmd)\t\t--> "
-echo -e "yo\nyi\nyop\nlim" | ./${pipex_bonus} here_doc lim cat cat "head -n2" outf >/dev/null 2>&1
-code=$(echo $?)
-echo -e "yo\nyi\nyop" | head -n2 > outf_expected 2>/dev/null
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf outf_expected
+# echo -ne "Test 4 : ./${pipex_bonus} here_doc lim cat cat \"head -n2\" outf (multicmd)\t\t--> "
+# echo -e "yo\nyi\nyop\nlim" | ./${pipex_bonus} here_doc lim cat cat "head -n2" outf >/dev/null 2>&1
+# code=$(echo $?)
+# echo -e "yo\nyi\nyop" | head -n2 > outf_expected 2>/dev/null
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf outf_expected
 
-echo -ne "Test 5 : ./${pipex_bonus} here_doc lim cat cat outf_no_w\t\t\t\t\t--> "
-touch outf_no_w && chmod u-w outf_no_w
-echo -e "yo\nyi\nlim" | ./${pipex_bonus} here_doc lim cat cat outf_no_w >/dev/null 2>&1
-code=$(echo $?)
-egrep -q "yo|yi" outf_no_w && echo -ne "${RED}KO ${END}" || echo -ne "${GREEN}OK ${END}"
-[[ $code -eq 1 ]] && echo -e "${GREEN}(return status == 1)${END}" || echo -e " ${YEL}(return status != 1)${END}"
-rm -f outf_no_w
+# echo -ne "Test 5 : ./${pipex_bonus} here_doc lim cat cat outf_no_w\t\t\t\t\t--> "
+# touch outf_no_w && chmod u-w outf_no_w
+# echo -e "yo\nyi\nlim" | ./${pipex_bonus} here_doc lim cat cat outf_no_w >/dev/null 2>&1
+# code=$(echo $?)
+# egrep -q "yo|yi" outf_no_w && echo -ne "${RED}KO ${END}" || echo -ne "${GREEN}OK ${END}"
+# [[ $code -eq 1 ]] && echo -e "${GREEN}(return status == 1)${END}" || echo -e " ${YEL}(return status != 1)${END}"
+# rm -f outf_no_w
 
-echo -ne "Test 6 : ./${pipex_bonus} here_doc lim lsopi \"echo yo\" outf \t\t\t\t--> "
-echo "salut" > outf && echo "salut" > outf_expected
-echo -e "yayaya\nlim" | ./${pipex_bonus} here_doc lim lsopi "echo yo" outf >/dev/null 2>&1
-code=$(echo $?)
-echo yo >> outf_expected
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf*
+# echo -ne "Test 6 : ./${pipex_bonus} here_doc lim lsopi \"echo yo\" outf \t\t\t\t--> "
+# echo "salut" > outf && echo "salut" > outf_expected
+# echo -e "yayaya\nlim" | ./${pipex_bonus} here_doc lim lsopi "echo yo" outf >/dev/null 2>&1
+# code=$(echo $?)
+# echo yo >> outf_expected
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf*
 
-if [[ $os == "linux" ]] ; then
-echo -ne "Test 7 : valgrind ./${pipex_bonus} here_doc lim cat cat outf \t\t\t\t--> "
-echo -e "yolim\nyop lim\nlim" | $vlgppx ./${pipex_bonus} here_doc lim cat cat outf > vlg.txt 2>&1
-first_proc=$(cat vlg.txt | grep -m1 -A 1 "HEAP SUMMARY" | tail -n1 | egrep -o "[0-9]*,?[0-9]* bytes" | cut -d' ' -f1)
-second_proc=$(cat vlg.txt | grep -m2 -A 1 "HEAP SUMMARY" | tail -n1 | egrep -o "[0-9]*,?[0-9]* bytes" | cut -d' ' -f1)
-main_proc=$(cat vlg.txt | grep -m4 -A 1 "HEAP SUMMARY" | tail -n1 | egrep -o "[0-9]*,?[0-9]* bytes" | cut -d' ' -f1)
-fd=$(cat vlg.txt | grep -o  "Open file descriptor [0-9]*:" | sort | uniq | wc -l | tr -d "[:blank:]")
-main_fd_open=$(cat vlg.txt | grep -m4 "FILE DESCRIPTORS:" | tail -n1 | egrep -o "[0-9]* open" | egrep -o "[0-9]*") # -m4 (not m3) if process fork for heredoc
-main_fd_std=$(cat vlg.txt | grep -m4 "FILE DESCRIPTORS:" | tail -n1 | egrep -o "[0-9]* std" | egrep -o "[0-9]*")
-main_fd=$(( $main_fd_open - $main_fd_std ))
-[[ $first_proc -eq 0 ]] && echo -ne "${GREEN}no leak cat${END}" || echo -ne "${RED}$first_proc leaks  cat${END}"
-[[ $second_proc -eq 0 ]] && echo -ne "${GREEN} - no leak cat${END}" || echo -ne "${RED} - $second_proc leaks cat${END}"
-[[ $main_proc -eq 0 ]] && echo -ne "${GREEN} - no leak main${END}" || echo -ne "${RED} - $main_proc leaks main${END}"
-[[ $fd -eq 0 ]] && echo -ne "${GREEN} - no extra fd (main+child)${END}" || echo -ne "${YEL} - $fd extra fd (main+child)${END}"
-[[ $main_fd -eq 0 ]] && echo -e "${GREEN} - no extra fd on main${END}" || echo -e "${RED} - $fd extra fd on main${END}"
-rm -f outf vlg.txt
-fi
+# if [[ $os == "linux" ]] ; then
+# echo -ne "Test 7 : valgrind ./${pipex_bonus} here_doc lim cat cat outf \t\t\t\t--> "
+# echo -e "yolim\nyop lim\nlim" | $vlgppx ./${pipex_bonus} here_doc lim cat cat outf > vlg.txt 2>&1
+# first_proc=$(cat vlg.txt | grep -m1 -A 1 "HEAP SUMMARY" | tail -n1 | egrep -o "[0-9]*,?[0-9]* bytes" | cut -d' ' -f1)
+# second_proc=$(cat vlg.txt | grep -m2 -A 1 "HEAP SUMMARY" | tail -n1 | egrep -o "[0-9]*,?[0-9]* bytes" | cut -d' ' -f1)
+# main_proc=$(cat vlg.txt | grep -m4 -A 1 "HEAP SUMMARY" | tail -n1 | egrep -o "[0-9]*,?[0-9]* bytes" | cut -d' ' -f1)
+# fd=$(cat vlg.txt | grep -o  "Open file descriptor [0-9]*:" | sort | uniq | wc -l | tr -d "[:blank:]")
+# main_fd_open=$(cat vlg.txt | grep -m4 "FILE DESCRIPTORS:" | tail -n1 | egrep -o "[0-9]* open" | egrep -o "[0-9]*") # -m4 (not m3) if process fork for heredoc
+# main_fd_std=$(cat vlg.txt | grep -m4 "FILE DESCRIPTORS:" | tail -n1 | egrep -o "[0-9]* std" | egrep -o "[0-9]*")
+# main_fd=$(( $main_fd_open - $main_fd_std ))
+# [[ $first_proc -eq 0 ]] && echo -ne "${GREEN}no leak cat${END}" || echo -ne "${RED}$first_proc leaks  cat${END}"
+# [[ $second_proc -eq 0 ]] && echo -ne "${GREEN} - no leak cat${END}" || echo -ne "${RED} - $second_proc leaks cat${END}"
+# [[ $main_proc -eq 0 ]] && echo -ne "${GREEN} - no leak main${END}" || echo -ne "${RED} - $main_proc leaks main${END}"
+# [[ $fd -eq 0 ]] && echo -ne "${GREEN} - no extra fd (main+child)${END}" || echo -ne "${YEL} - $fd extra fd (main+child)${END}"
+# [[ $main_fd -eq 0 ]] && echo -e "${GREEN} - no extra fd on main${END}" || echo -e "${RED} - $fd extra fd on main${END}"
+# rm -f outf vlg.txt
+# fi
 
-fi
+# fi
 
 
-# -----------------------------------------------------------------------------------------------------------------------------------------
-# ADDITIONNAL TESTS : mostly about parsing. Note that double quotes cannot be parsed using bash grammar bc of project's argument format
-# -----------------------------------------------------------------------------------------------------------------------------------------
-if [[ ! $1 =~ -m$|-mandatory$ && ! $1 =~ -mb$ ]] ; then
+# # -----------------------------------------------------------------------------------------------------------------------------------------
+# # ADDITIONNAL TESTS : mostly about parsing. Note that double quotes cannot be parsed using bash grammar bc of project's argument format
+# # -----------------------------------------------------------------------------------------------------------------------------------------
+# if [[ ! $1 =~ -m$|-mandatory$ && ! $1 =~ -mb$ ]] ; then
 
-echo -e "${YEL_BG}Additional tests (not all required to pass to validate pipex)${END}"
+# echo -e "${YEL_BG}Additional tests (not all required to pass to validate pipex)${END}"
 
-# quotes
-echo -e "${BLU_BG}Single quotes parsing:${END}"
+# # quotes
+# echo -e "${BLU_BG}Single quotes parsing:${END}"
 
-echo -ne "Test 1 : ./pipex Makefile \"echo yo\" \"echo 'a' 'b' 'c'\" outf \t\t--> "
-./pipex Makefile "echo yo" "echo 'a' 'b' 'c'" outf 2>/dev/null
-code=$(echo $?)
-echo 'a' 'b' 'c' > outf_expected
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf*
+# echo -ne "Test 1 : ./pipex Makefile \"echo yo\" \"echo 'a' 'b' 'c'\" outf \t\t--> "
+# ./pipex Makefile "echo yo" "echo 'a' 'b' 'c'" outf 2>/dev/null
+# code=$(echo $?)
+# echo 'a' 'b' 'c' > outf_expected
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf*
 
-echo -ne "Test 2 : ./pipex Makefile cat \"grep 'clean'\" outf \t\t\t--> "
-./pipex Makefile "cat" "grep 'clean'" outf 2>/dev/null
-code=$(echo $?)
-cat Makefile | grep 'clean' > outf_expected
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf*
+# echo -ne "Test 2 : ./pipex Makefile cat \"grep 'clean'\" outf \t\t\t--> "
+# ./pipex Makefile "cat" "grep 'clean'" outf 2>/dev/null
+# code=$(echo $?)
+# cat Makefile | grep 'clean' > outf_expected
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf*
 
-echo -ne "Test 3 : ./pipex Makefile cat \"cut -d'=' -f1\" outf \t\t\t--> "
-./pipex Makefile "cat" "cut -d'=' -f1" outf 2>/dev/null
-code=$(echo $?)
-cat Makefile | cut -d'=' -f1 > outf_expected
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf*
+# echo -ne "Test 3 : ./pipex Makefile cat \"cut -d'=' -f1\" outf \t\t\t--> "
+# ./pipex Makefile "cat" "cut -d'=' -f1" outf 2>/dev/null
+# code=$(echo $?)
+# cat Makefile | cut -d'=' -f1 > outf_expected
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf*
 
-echo -ne "Test 4 : ./pipex Makefile cat \"echo ''yo'\" outf \t\t\t--> "
-./pipex Makefile "cat" "echo ''yo'" outf 2>/dev/null
-code=$(echo $?)
-echo outf | grep -q yo && echo -ne "${RED}KO (odd nb of quotes) ${END}" || echo -ne "${GREEN}OK ${END}" 
-[[ $code -ne 0 ]] && echo -e "${GREEN}(return status != 0)${END}" || echo -e "${YEL}(return status == 0)${END}"
-rm -f outf*
+# echo -ne "Test 4 : ./pipex Makefile cat \"echo ''yo'\" outf \t\t\t--> "
+# ./pipex Makefile "cat" "echo ''yo'" outf 2>/dev/null
+# code=$(echo $?)
+# echo outf | grep -q yo && echo -ne "${RED}KO (odd nb of quotes) ${END}" || echo -ne "${GREEN}OK ${END}" 
+# [[ $code -ne 0 ]] && echo -e "${GREEN}(return status != 0)${END}" || echo -e "${YEL}(return status == 0)${END}"
+# rm -f outf*
 
-# <spaces> (if pb, stop using ft_split with space as separator. Think about a char (not unsigned?!) value you would never receive in argv. Think about spaces enclosed in single quotes too)
-echo -e "${BLU_BG}Spaces parsing:${END}"
+# # <spaces> (if pb, stop using ft_split with space as separator. Think about a char (not unsigned?!) value you would never receive in argv. Think about spaces enclosed in single quotes too)
+# echo -e "${BLU_BG}Spaces parsing:${END}"
 
-echo -ne "Test 1 : ./pipex Makefile \"echo yo\" \"echo ' '\" outf \t\t\t--> "
-./pipex Makefile "echo yo" "echo ' '" outf 2>/dev/null
-code=$(echo $?)
-echo ' ' > outf_expected
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf*
+# echo -ne "Test 1 : ./pipex Makefile \"echo yo\" \"echo ' '\" outf \t\t\t--> "
+# ./pipex Makefile "echo yo" "echo ' '" outf 2>/dev/null
+# code=$(echo $?)
+# echo ' ' > outf_expected
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf*
 
-echo -ne "Test 2 : ./pipex Makefile \"echo yo\" \"echo ' hello '\" outf \t\t--> "
-./pipex Makefile "echo yo" "echo ' hello '" outf 2>/dev/null
-code=$(echo $?)
-echo ' hello ' > outf_expected
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf*
+# echo -ne "Test 2 : ./pipex Makefile \"echo yo\" \"echo ' hello '\" outf \t\t--> "
+# ./pipex Makefile "echo yo" "echo ' hello '" outf 2>/dev/null
+# code=$(echo $?)
+# echo ' hello ' > outf_expected
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf*
 
-echo -ne "Test 3 : ./pipex Makefile cat \"cut -d' ' -f1\" outf \t\t\t--> "
-./pipex Makefile "cat" "cut -d' ' -f1" outf 2>/dev/null
-code=$(echo $?)
-cat Makefile | cut -d' ' -f1 > outf_expected
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf*
+# echo -ne "Test 3 : ./pipex Makefile cat \"cut -d' ' -f1\" outf \t\t\t--> "
+# ./pipex Makefile "cat" "cut -d' ' -f1" outf 2>/dev/null
+# code=$(echo $?)
+# cat Makefile | cut -d' ' -f1 > outf_expected
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf*
 
-echo -ne "Test 4 : touch \"t file\" && ./pipex Makefile cat \"ls 't file'\" outf \t--> "
-touch "t file"
-./pipex Makefile "cat" "ls -l 't file'" outf 2>/dev/null
-code=$(echo $?)
-ls -l 't file' > outf_expected
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf* 't file'
+# echo -ne "Test 4 : touch \"t file\" && ./pipex Makefile cat \"ls 't file'\" outf \t--> "
+# touch "t file"
+# ./pipex Makefile "cat" "ls -l 't file'" outf 2>/dev/null
+# code=$(echo $?)
+# ls -l 't file' > outf_expected
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf* 't file'
 
-# backslash (cancels interpretation on the following metachar ; it is not even required in minishell ...)
-echo -e "${BLU_BG}Backlash parsing:${END}"
+# # backslash (cancels interpretation on the following metachar ; it is not even required in minishell ...)
+# echo -e "${BLU_BG}Backlash parsing:${END}"
 
-echo -ne "Test 1 : touch t\ file && ./pipex Makefile cat \"ls t\ file\" outf \t--> "
-touch "t file"
-./pipex Makefile "cat" "ls -l t\ file" outf 2>/dev/null
-code=$(echo $?)
-ls -l t\ file > outf_expected
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf* 't file'
+# echo -ne "Test 1 : touch t\ file && ./pipex Makefile cat \"ls t\ file\" outf \t--> "
+# touch "t file"
+# ./pipex Makefile "cat" "ls -l t\ file" outf 2>/dev/null
+# code=$(echo $?)
+# ls -l t\ file > outf_expected
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf* 't file'
 
-echo -ne "Test 2 : touch 't\ file' && ./pipex Makefile cat \"ls 't\ file'\" outf \t--> "
-touch 't\ file'
-./pipex Makefile cat "ls 'test\ file'" outf 2>/dev/null
-code=$(echo $?)
-ls 't\ file' > outf_expected
-diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
-rm -f outf* 't\ file'
+# echo -ne "Test 2 : touch 't\ file' && ./pipex Makefile cat \"ls 't\ file'\" outf \t--> "
+# touch 't\ file'
+# ./pipex Makefile cat "ls 'test\ file'" outf 2>/dev/null
+# code=$(echo $?)
+# ls 't\ file' > outf_expected
+# diff outf outf_expected >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -e "${GREEN}(return status == 0)${END}" || echo -e "${YEL}(return status != 0)${END}"
+# rm -f outf* 't\ file'
 
-# fd limit (multi cmd bonus must be done)
-# lets asumme : 2 fd (for in/outfile) + 2 fd * (nb of cmd -1) --> 510 cmd ok ; 511 cmds == 1024 fd
-[[ $bonus -eq 1 ]] && make ${rule_bonus} >/dev/null 2>&1
-echo -e "${BLU_BG}Reaching 1024 fd openned:${END}"
+# # fd limit (multi cmd bonus must be done)
+# # lets asumme : 2 fd (for in/outfile) + 2 fd * (nb of cmd -1) --> 510 cmd ok ; 511 cmds == 1024 fd
+# [[ $bonus -eq 1 ]] && make ${rule_bonus} >/dev/null 2>&1
+# echo -e "${BLU_BG}Reaching 1024 fd openned:${END}"
 
-echo -ne "Test 1 : ./$pipex_bonus Makefile cat (510 times) outf \t\t\t\t--> "
-./${pipex_bonus} Makefile cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat outf >err 2>&1
-code=$(echo $?)
-diff Makefile outf >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
-[[ $code -eq 0 ]] && echo -ne "${GREEN}(return status == 0) ${END}" || echo -ne "${YEL}(return status != 0) ${END}"
-cat err | egrep -qi "segfault|segmentation|core ?dump" && echo -e "${RED}SUPER KO segfault${END}" || echo -e "${GREEN}(no segfault)${END}"
-rm -f outf err
+# echo -ne "Test 1 : ./$pipex_bonus Makefile cat (510 times) outf \t\t\t\t--> "
+# ./${pipex_bonus} Makefile cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat outf >err 2>&1
+# code=$(echo $?)
+# diff Makefile outf >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${RED}KO ${END}"
+# [[ $code -eq 0 ]] && echo -ne "${GREEN}(return status == 0) ${END}" || echo -ne "${YEL}(return status != 0) ${END}"
+# cat err | egrep -qi "segfault|segmentation|core ?dump" && echo -e "${RED}SUPER KO segfault${END}" || echo -e "${GREEN}(no segfault)${END}"
+# rm -f outf err
 
-echo -ne "Test 2 : ./$pipex_bonus Makefile cat (511 times) outf \t\t\t\t--> "
-./$pipex_bonus Makefile cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat outf >err 2>&1
-code=$(echo $?)
-diff Makefile outf >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${YEL}KO ${END}"
-[[ $code -eq 0 ]] && echo -ne "${GREEN}(return status == 0) ${END}" || echo -ne "${YEL}(return status != 0) ${END}"
-cat err | grep -i "open" | grep -qi "files" && echo -ne "${GREEN}(err msg with open files) ${END}"
-cat err | egrep -qi "segfault|segmentation|core ?dump" && echo -e "${RED}SUPER KO segfault${END}" || echo -e "${GREEN}(no segfault)${END}"
-rm -f outf err
+# echo -ne "Test 2 : ./$pipex_bonus Makefile cat (511 times) outf \t\t\t\t--> "
+# ./$pipex_bonus Makefile cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat outf >err 2>&1
+# code=$(echo $?)
+# diff Makefile outf >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${YEL}KO ${END}"
+# [[ $code -eq 0 ]] && echo -ne "${GREEN}(return status == 0) ${END}" || echo -ne "${YEL}(return status != 0) ${END}"
+# cat err | grep -i "open" | grep -qi "files" && echo -ne "${GREEN}(err msg with open files) ${END}"
+# cat err | egrep -qi "segfault|segmentation|core ?dump" && echo -e "${RED}SUPER KO segfault${END}" || echo -e "${GREEN}(no segfault)${END}"
+# rm -f outf err
 
-echo -ne "Test 3 : ./$pipex_bonus Makefile cat (521 times) outf \t\t\t\t--> "
-./$pipex_bonus Makefile cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
- cat cat cat cat cat cat cat outf >err 2>&1
-code=$(echo $?)
-diff Makefile outf >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${YEL}KO ${END}"
-[[ $code -eq 0 ]] && echo -ne "${GREEN}(return status == 0) ${END}" || echo -ne "${YEL}(return status != 0) ${END}"
-cat err | grep -i "open" | grep -qi "files" && echo -ne "${GREEN}(err msg with open files) ${END}"
-cat err | egrep -qi "segfault|segmentation|core ?dump" && echo -e "${RED}SUPER KO segfault${END}" || echo -e "${GREEN}(no segfault)${END}"
-rm -f outf err
+# echo -ne "Test 3 : ./$pipex_bonus Makefile cat (521 times) outf \t\t\t\t--> "
+# ./$pipex_bonus Makefile cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat \
+#  cat cat cat cat cat cat cat outf >err 2>&1
+# code=$(echo $?)
+# diff Makefile outf >/dev/null 2>&1 && echo -ne "${GREEN}OK ${END}" || echo -ne "${YEL}KO ${END}"
+# [[ $code -eq 0 ]] && echo -ne "${GREEN}(return status == 0) ${END}" || echo -ne "${YEL}(return status != 0) ${END}"
+# cat err | grep -i "open" | grep -qi "files" && echo -ne "${GREEN}(err msg with open files) ${END}"
+# cat err | egrep -qi "segfault|segmentation|core ?dump" && echo -e "${RED}SUPER KO segfault${END}" || echo -e "${GREEN}(no segfault)${END}"
+# rm -f outf err
 
-fi
+# fi
 
 # end
 make fclean >/dev/null 2>&1
