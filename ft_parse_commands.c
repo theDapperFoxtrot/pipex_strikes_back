@@ -72,7 +72,7 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 		{
 			while (cmd_tokens[arg_count])
 				arg_count++;
-			pipex->cmd_args1 = (char **)malloc(sizeof(char *) * arg_count + 1);
+			pipex->cmd_args1 = (char **)malloc(sizeof(char *) * (arg_count + 1));
 			if (!pipex->cmd_args1)
 				error_exit(pipex, "Failed to allocate memory for cmd_args1\n");
 			while (i < arg_count)
@@ -80,13 +80,14 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 				pipex->cmd_args1[i] = ft_strdup(cmd_tokens[i]);
 				i++;
 			}
+			pipex->cmd_args1[i] = NULL;
 			free_split(cmd_tokens);
 		}
 		else
 		{
 			while (cmd_tokens[arg_count])
 				arg_count++;
-			pipex->cmd_args2 = (char **)malloc(sizeof(char *) * arg_count + 1);
+			pipex->cmd_args2 = (char **)malloc(sizeof(char *) * (arg_count + 1));
 			if (!pipex->cmd_args2)
 				error_exit(pipex, "Failed to allocate memory for cmd_args2\n");
 			while (i < arg_count)
@@ -94,6 +95,7 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 				pipex->cmd_args2[i] = ft_strdup(cmd_tokens[i]);
 				i++;
 			}
+			pipex->cmd_args2[i] = NULL;
 			free_split(cmd_tokens);
 		}
 		return ;

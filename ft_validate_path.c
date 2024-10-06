@@ -9,7 +9,7 @@ int allocate_cmd_args_arrays(t_pipex *pipex, char **cmd_tokens)
 	{
 		while (cmd_tokens[arg_count])
 			arg_count++;
-		pipex->cmd_args1 = (char **)malloc(sizeof(char *) * arg_count + 1);
+		pipex->cmd_args1 = (char **)malloc(sizeof(char *) * (arg_count + 1));
 		if (!pipex->cmd_args1)
 			error_exit(pipex, "Failed to allocate memory for cmd_args1\n");
 	}
@@ -17,7 +17,7 @@ int allocate_cmd_args_arrays(t_pipex *pipex, char **cmd_tokens)
 	{
 		while (cmd_tokens[arg_count])
 			arg_count++;
-		pipex->cmd_args2 = (char **)malloc(sizeof(char *) * arg_count + 1);
+		pipex->cmd_args2 = (char **)malloc(sizeof(char *) * (arg_count + 1));
 		if (!pipex->cmd_args2)
 			error_exit(pipex, "Failed to allocate memory for cmd_args2\n");
 	}
@@ -28,13 +28,13 @@ void allocate_cmd_args(t_pipex *pipex, char *full_path)
 {
 	char **cmd_tokens;
 	int i;
-	// int arg_count;
+	int arg_count;
 
 	i = 1;
 	cmd_tokens = ft_split(pipex->command_arguments[pipex->i], ' ');
 	if (!cmd_tokens)
 		error_exit(pipex, "Failed to allocate memory for cmd_tokens in access_check\n");
-	allocate_cmd_args_arrays(pipex, cmd_tokens);
+	arg_count = allocate_cmd_args_arrays(pipex, cmd_tokens);
 	while (cmd_tokens[i])
 	{
 		if (pipex->i == 0)
@@ -47,12 +47,12 @@ void allocate_cmd_args(t_pipex *pipex, char *full_path)
 	if (pipex->i == 0)
 	{
 		pipex->cmd_args1[0] = ft_strdup(full_path); // Store the full path to the executable
-		// pipex->cmd_args1[arg_count] = ft_strdup(NULL);
+		pipex->cmd_args1[arg_count] = NULL;
 	}
 	else
 	{
 		pipex->cmd_args2[0] = ft_strdup(full_path); // Store the full path to the executable
-		// pipex->cmd_args2[arg_count] = ft_strdup(NULL);
+		pipex->cmd_args2[arg_count] = NULL;
 	}
 }
 
