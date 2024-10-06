@@ -24,16 +24,12 @@ int allocate_cmd_args_arrays(t_pipex *pipex, char **cmd_tokens)
 	return (arg_count);
 }
 
-void allocate_cmd_args(t_pipex *pipex, char *full_path)
+void allocate_cmd_args(t_pipex *pipex, char *full_path, char **cmd_tokens)
 {
-	char **cmd_tokens;
 	int i;
 	int arg_count;
 
 	i = 1;
-	cmd_tokens = ft_split(pipex->command_arguments[pipex->i], ' ');
-	if (!cmd_tokens)
-		error_exit(pipex, "Failed to allocate memory for cmd_tokens in access_check\n");
 	arg_count = allocate_cmd_args_arrays(pipex, cmd_tokens);
 	while (cmd_tokens[i])
 	{
@@ -57,11 +53,11 @@ void allocate_cmd_args(t_pipex *pipex, char *full_path)
 }
 
 // This function is used to check if the path is valid
-static int access_check(char *full_path, t_pipex *pipex)
+static int access_check(t_pipex *pipex, char *full_path, char **cmd_tokens)
 {
 	if (!access(full_path, X_OK))
 	{
-		allocate_cmd_args(pipex, full_path);
+		allocate_cmd_args(pipex, full_path, cmd_tokens);
 		free(full_path);
 		return (1); // Path found and valid
 	}
@@ -72,7 +68,7 @@ static int access_check(char *full_path, t_pipex *pipex)
 // This function is used to validate the path of the command given
 // Join paths[i] and "/" first
 // Join the result with the command
-int validate_path(t_pipex *pipex, char **paths, char **cmd)
+int validate_path(t_pipex *pipex, char **paths, char **cmd_tokens)
 {
 	char *full_path;
 	char *temp;
@@ -84,11 +80,11 @@ int validate_path(t_pipex *pipex, char **paths, char **cmd)
 		temp = ft_strjoin(paths[i], "/");
 		if (!temp)
 			error_exit(pipex, "Malloc failed\n");
-		full_path = ft_strjoin(temp, cmd[0]);
+		full_path = ft_strjoin(temp, cmd_tokens[0]);
 		free(temp); // Free the intermediate result
 		if (!full_path)
 			error_exit(pipex, "Malloc failed\n");
-		if (access_check(full_path, pipex) == 1)
+		if (access_check(pipex, full_path, cmd_tokens) == 1)
 		{
 			free_split(paths);
 			return (1); // Path found and stored

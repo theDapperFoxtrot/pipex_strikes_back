@@ -19,14 +19,14 @@ static char *get_paths(char **envp)
 	return (path);
 }
 // This is where we loop through the paths to find the executable and store the full path to the executable in the command_arguments array
-static int loop_paths(t_pipex *pipex, char *path, char **cmd)
+static int loop_paths(t_pipex *pipex, char *path, char **cmd_tokens)
 {
 	char **paths;
 
 	paths = ft_split(path, ':');
 	if (!paths)
 		error_exit(pipex, "PATH is empty\n");
-	return (validate_path(pipex, paths, cmd));
+	return (validate_path(pipex, paths, cmd_tokens));
 }
 // This is used when the command given is a full path to the executable OR we're given a directory in which there is no valid command, we check if it is executable and return 1 if it is, else we exit with an error message
 int ft_slash_check(char *cmd, t_pipex *pipex)

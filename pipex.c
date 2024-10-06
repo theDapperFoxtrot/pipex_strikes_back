@@ -14,7 +14,7 @@ int main (int argc, char **argv, char **envp)
 	pipex.i = 0;
 	while (pipex.i < pipex.command_count)
 	{
-		ft_parse_commands(&pipex, envp, pipex.command_arguments[pipex.i]);
+		ft_parse_commands(&pipex, envp, argv[2 + pipex.i]);
 		pipex.i++;
 	}
 

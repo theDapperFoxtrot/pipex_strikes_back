@@ -14,18 +14,18 @@ void ft_check_files(t_pipex *pipex, int argc, char **argv)
 		error_exit(pipex, "Permission denied\n");
 }
 
-void ft_check_commands(t_pipex *pipex, char **argv)
-{
-	while (pipex->i < pipex->command_count)
-	{
-		pipex->command_arguments[pipex->i] = ft_strdup(argv[2 + pipex->i]);
-		pipex->i++;
-	}
-	pipex->command_arguments[pipex->i] = NULL;
-}
+// void ft_check_commands(t_pipex *pipex, char **argv)
+// {
+// 	while (pipex->i < pipex->command_count)
+// 	{
+// 		pipex->command_arguments[pipex->i] = ft_strdup(argv[2 + pipex->i]);
+// 		pipex->i++;
+// 	}
+// 	pipex->command_arguments[pipex->i] = NULL;
+// }
 
 void ft_check_args(t_pipex *pipex, int argc, char **argv)
 {
 	ft_check_files(pipex, argc, argv);
-	ft_check_commands(pipex, argv);
+	// ft_check_commands(pipex, argv);
 }
