@@ -21,7 +21,6 @@ int main (int argc, char **argv, char **envp)
 	pipex.i = 0;
 	if (pipe(pipex.fd) == -1)
 		error_exit(&pipex, NULL, "Pipe function failed\n", 1);
-
 	while (pipex.i < pipex.command_count)
 	{
 		pipex.pid[pipex.i] = (pid_t) fork();
@@ -63,7 +62,6 @@ int main (int argc, char **argv, char **envp)
 	int status;
 	int exit_code;
 	int child_pid;
-
 	while (pipex.i < 2)
 	{
 		child_pid = waitpid(-1, &status, 0);
@@ -78,7 +76,3 @@ int main (int argc, char **argv, char **envp)
 	ft_cleanup(&pipex);
 	return (exit_code);
 }
-
-// WIFEXITED
-// WEXITSTATUS
-// WIFSIGNALED
