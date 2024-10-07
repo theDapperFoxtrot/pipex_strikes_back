@@ -11,7 +11,7 @@ int allocate_cmd_args_arrays(t_pipex *pipex, char **cmd_tokens)
 			arg_count++;
 		pipex->cmd_args1 = (char **)malloc(sizeof(char *) * (arg_count + 1));
 		if (!pipex->cmd_args1)
-			error_exit(pipex, "Failed to allocate memory for cmd_args1\n");
+			error_exit(pipex,cmd_tokens[0], "Failed to allocate memory for cmd_args1\n", 1);
 	}
 	if (pipex->i == 1)
 	{
@@ -19,7 +19,7 @@ int allocate_cmd_args_arrays(t_pipex *pipex, char **cmd_tokens)
 			arg_count++;
 		pipex->cmd_args2 = (char **)malloc(sizeof(char *) * (arg_count + 1));
 		if (!pipex->cmd_args2)
-			error_exit(pipex, "Failed to allocate memory for cmd_args2\n");
+			error_exit(pipex, cmd_tokens[0], "Failed to allocate memory for cmd_args2\n", 1);
 	}
 	return (arg_count);
 }
@@ -79,11 +79,11 @@ int validate_path(t_pipex *pipex, char **paths, char **cmd_tokens)
 	{
 		temp = ft_strjoin(paths[i], "/");
 		if (!temp)
-			error_exit(pipex, "Malloc failed\n");
+			error_exit(pipex, NULL, "Malloc failed\n", 1);
 		full_path = ft_strjoin(temp, cmd_tokens[0]);
 		free(temp); // Free the intermediate result
 		if (!full_path)
-			error_exit(pipex, "Malloc failed\n");
+			error_exit(pipex, NULL, "Malloc failed\n", 1);
 		if (access_check(pipex, full_path, cmd_tokens) == 1)
 		{
 			free_split(paths);
