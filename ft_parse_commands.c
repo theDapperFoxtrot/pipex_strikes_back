@@ -120,6 +120,9 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 	{
 		free(path);
 		free_split(cmd_tokens);
-		error_exit(pipex, cmd, "command not found\n", 1);
+        if (pipex->i == 0)
+            error_exit(pipex, cmd, "command not found\n", 1);
+        else
+            error_exit(pipex, cmd, "command not found\n", 127);
 	}
 }
