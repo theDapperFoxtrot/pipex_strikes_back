@@ -12,8 +12,7 @@ typedef struct s_pipex
 	int		argc;
 	int		infile;
 	int		outfile;
-	int     i; //track the current process (from 0)
-	char    **command_arguments;
+	int     i; //track which command we're working with (first/second)
 	char	**cmd_args1;
 	char	**cmd_args2;
 	int  	command_count;

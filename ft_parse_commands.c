@@ -67,6 +67,8 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 	cmd_tokens = ft_split(cmd, ' ');
 	if (!cmd_tokens)
 		error_exit(pipex, "Failed to split commands into tokens\n");
+	if (!cmd_tokens[0])
+		error_exit(pipex, "Failed to split commands into tokens\n");
 	if (ft_slash_check(cmd_tokens[0], pipex))
 	{
 		if (pipex->i == 0)

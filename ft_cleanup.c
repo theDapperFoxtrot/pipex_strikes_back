@@ -9,12 +9,16 @@ void    ft_cleanup(t_pipex *pipex)
 void    free_split(char **split_array)
 {
 	int i = 0;
-	while (split_array[i])
+
+	if (split_array != NULL)
 	{
-		free(split_array[i]);
-		split_array[i] = NULL;
-		i++;
+		while (split_array[i])
+		{
+			free(split_array[i]);
+			split_array[i] = NULL;
+			i++;
+		}
+		free(split_array);
+		split_array = NULL;
 	}
-	free(split_array);
-	split_array = NULL;
 }

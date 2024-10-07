@@ -27,29 +27,29 @@ int main (int argc, char **argv, char **envp)
 		pipex.pid[pipex.i] = (pid_t) fork();
 		if (pipex.pid[pipex.i] < 0)
 			error_exit(&pipex, "Fork was unsuccessful");
-		if (pipex.pid == 0 && pipex.i == 0)
+		if (pipex.pid[pipex.i] == 0 && pipex.i == 0)
 		{
 			close(pipex.fd[0]);
 			close(pipex.outfile);
-			// printf("Hello, I am child processs #%d\n", pipex.i + 1);
+			printf("Hello, I am child processs #%d\n", pipex.i + 1);
 			dup2(pipex.infile, STDIN_FILENO);
 			close(pipex.infile);
 			dup2(pipex.fd[1], STDOUT_FILENO);
 			close(pipex.fd[1]);
 			execve(pipex.cmd_args1[0], pipex.cmd_args1, envp);
-			error_exit(&pipex, "Execve failed for cmd1\n");
+			error_exit(&pipex, "Is a directory\n");
 		}
-		if (pipex.pid == 0 && pipex.i == 1)
+		if (pipex.pid[pipex.i] == 0 && pipex.i == 1)
 		{
 			close(pipex.fd[1]);
 			close(pipex.infile);
-			// printf("Hello, I am child processs #%d\n", pipex.i + 1);
+			printf("Hello, I am child processs #%d\n", pipex.i + 1);
 			dup2(pipex.fd[0], STDIN_FILENO);
 			dup2(pipex.outfile, STDOUT_FILENO);
 			close(pipex.outfile);
 			close(pipex.fd[0]);
 			execve(pipex.cmd_args2[0], pipex.cmd_args2, envp);
-			error_exit(&pipex, "Execve failed for cmd2\n");
+			error_exit(&pipex, "Is a directory\n");
 		}
 		pipex.i++;
 	}
@@ -57,48 +57,14 @@ int main (int argc, char **argv, char **envp)
 	close(pipex.outfile);
 	close(pipex.fd[0]);
 	close(pipex.fd[1]);
-	// pipex.i = 0;
-	// int status;
+	pipex.i = 0;
+	int status;
 
-	// while (waitpid(pipex.pid[pipex.i], &status, 0) > 0)
-	// {
-	// 	pipex.i++;
-	// }
-	// printf("%d\n", status);
-	// wait(NULL);
-	// wait(NULL);
+	while (waitpid(pipex.pid[pipex.i], &status, 0) > 0)
+	{
+		pipex.i++;
+	}
+	printf("%d\n", status);
 	ft_cleanup(&pipex);
-	return (0);
-	// error_exit(&pipex, "<<<pipex successful>>>\n");
-	// 	ft_exec1();
-	// 	ft_exec2();
-
-
-	// ----------------TESTING---------------------
-	// int i = 0;
-	// while (pipex.cmd_args1[i])
-	// {
-	// 	printf("%s \n", pipex.cmd_args1[i]);
-	// 	i++;
-	// }
-	// i = 0;
-	// while (pipex.cmd_args2[i])
-	// {
-	// 	printf("%s \n", pipex.cmd_args2[i]);
-	// 	i++;
-	// }
-// At this point I would like to loop through all the arrays in my struct to determine that the data is populated and null-terminated
-// void		ft_cleanup();
+	return (status);
 }
-
-
-// main()
-// {
-// 	ft_init_pipex()
-// 	ft_check_args()
-// 	ft_parse_cmds()
-// 	ft_parse_args()
-// 	while (cmds)
-// 		ft_exec()
-// 	ft_cleanup()
-// }
