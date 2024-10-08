@@ -1,12 +1,13 @@
 #include "pipex.h"
 
 // This function is to locate the PATH variable in the environment variables and return the value of the PATH variable
-static char *get_paths(char **envp)
+static char *get_paths(t_pipex *pipex, char **envp, char *cmd)
 {
-	char 	*path;
+	static char 	*path;
 	int 	i;
 
 	i = 0;
+	// ft_bzero(path, sizeof(path));
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
@@ -16,6 +17,10 @@ static char *get_paths(char **envp)
 		}
 		i++;
 	}
+	// if (path[0] == '\0' && access(cmd, X_OK))
+	// printf("len: %ld\n", ft_strlen(path));
+	if (!path && access(cmd, X_OK))
+		error_exit(pipex, cmd, "No such file or directory\n", 127);
 	return (path);
 }
 // This is where we loop through the paths to find the executable and store the full path to the executable in the command_arguments array
@@ -73,8 +78,8 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 	cmd_tokens = ft_split(cmd, ' ');
 	if (!cmd_tokens)
 		error_exit(pipex, NULL, "Failed to split commands into tokens\n", 1);
-	if (!cmd_tokens[0])
-		error_exit(pipex, NULL, "Failed to split commands into tokens\n", 1);
+	// if (!cmd_tokens[0])
+	// 	error_exit(pipex, NULL, "Failed to split commands into tokens\n", 1);
 	if (ft_slash_check(pipex, cmd_tokens[0]))
 	{
 		if (pipex->i == 0)
@@ -109,7 +114,7 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 		}
 		return ;
 	}
-	path = get_paths(envp);
+	path = get_paths(pipex, envp, cmd);
 	if (loop_paths(pipex, path, cmd_tokens))
 	{
 		free(path);

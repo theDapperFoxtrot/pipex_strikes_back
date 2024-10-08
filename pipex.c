@@ -15,6 +15,7 @@ int main (int argc, char **argv, char **envp)
 	// pipex.i = 0;
 	// while (pipex.i < pipex.command_count)
 	// {
+	// 	ft_parse_commands(&pipex, envp, argv[2 + pipex.i]);
 	// 	pipex.i++;
 	// }
 	char **exec_args1;
@@ -75,18 +76,27 @@ int main (int argc, char **argv, char **envp)
 	pipex.i = 0;
 	int status;
 	int exit_code;
-	int child_pid;
-	while (pipex.i < 2)
-	{
-		child_pid = waitpid(-1, &status, 0);
-		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			status = WTERMSIG(status) + 128;
-		if (child_pid == pipex.pid[1])
-			exit_code = status;
-		pipex.i++;
-	}
+
+	waitpid(pipex.pid[1], &status, 0);
+	while (waitpid(0, NULL, 0) > 0)
+		continue ;
+	if (WIFEXITED(status))
+		exit_code = WEXITSTATUS(status);
+	// int child_pid;
+	// while (pipex.i < 2)
+	// {
+	// 	exit_code = waitpid(-1, &status, 0);
+	// 	if (WIFEXITED(status))
+	// 	{
+	// 		exit_code = WEXITSTATUS(status);
+	// 		break ;
+	// 	}
+	// 	// else if (WIFSIGNALED(status))
+	// 	// 	status = WTERMSIG(status) + 128;
+	// 	// if (child_pid == pipex.pid[1])
+			
+	// 	pipex.i++;
+	// }
 	free_split(exec_args1);
 	free_split(exec_args2);
 	ft_cleanup(&pipex);
