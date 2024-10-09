@@ -20,6 +20,7 @@ typedef struct s_pipex
 	pid_t   pid[2];
 } t_pipex;
 
+int		main(int argc, char **argv, char **envp);
 void	ft_init_pipex(t_pipex *pipex, int argc);
 void	ft_check_args(t_pipex *pipex, int argc, char **argv);
 void	ft_parse_commands(t_pipex *pipex, char **envp, char *cmd);
@@ -32,5 +33,7 @@ void	child_process2(t_pipex *pipex, char **argv, int argc, char **envp);
 void	execute_loop(t_pipex *pipex, int argc, char **argv, char **envp);
 void	close_fds(t_pipex *pipex);
 int		handle_exit(t_pipex *pipex);
+void	malloc_abs_path1(t_pipex *pipex, char **cmd_tokens);
+void	malloc_abs_path2(t_pipex *pipex, char **cmd_tokens);
 
 #endif

@@ -39,7 +39,6 @@ void allocate_cmd_args(t_pipex *pipex, char *full_path, char **cmd_tokens)
 			pipex->cmd_args2[i] = ft_strdup(cmd_tokens[i]);
 		i++;
 	}
-	// free_split(cmd_tokens);
 	if (pipex->i == 0)
 	{
 		pipex->cmd_args1[0] = ft_strdup(full_path); // Store the full path to the executable
