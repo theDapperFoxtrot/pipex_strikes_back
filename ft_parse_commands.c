@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 18:16:59 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/09 20:24:22 by smishos          ###   ########.fr       */
+/*   Updated: 2024/10/09 20:58:53 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,25 @@ void	malloc_abs_path2(t_pipex *pipex, char **cmd_tokens)
 	}
 	pipex->cmd_args2[i] = NULL;
 }
+void	test(t_pipex *pipex, char *cmd, char **exec_args)
+{
+	free_split(exec_args);
+	if (pipex->i == 0)
+		error_exit(pipex, cmd, "command not found\n", 1);
+	else
+		error_exit(pipex, cmd, "command not found\n", 127);
+}
+
+int	test_free(char *path, char **cmd_tokens)
+{
+	free(path);
+	free_split(cmd_tokens);
+	return (0);
+}
 
 
 // Here is where we check if we were given a directory or simply the name of the executable where we then loop through the paths to find the executable and store the full path to the executable in the command_arguments array
-void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
+int ft_parse_commands(t_pipex *pipex, char **envp, char *cmd, char **exec_args)
 {
 	char 	*path;
 	char	**cmd_tokens;
@@ -127,22 +142,15 @@ void ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 		else
 			malloc_abs_path2(pipex, cmd_tokens);
 		free_split(cmd_tokens);
-		return ;
+		return (0);
 	}
 	path = get_paths(pipex, envp, cmd);
 	if (loop_paths(pipex, path, cmd_tokens))
-	{
-		free(path);
-		free_split(cmd_tokens);
-		return ;
-	}
+		return (test_free(path, cmd_tokens));
 	else
 	{
-		free(path);
-		free_split(cmd_tokens);
-        if (pipex->i == 0)
-            error_exit(pipex, cmd, "command not found\n", 1);
-        else
-            error_exit(pipex, cmd, "command not found\n", 127);
+		test_free(path, cmd_tokens);
+		test(pipex, cmd, exec_args);
 	}
+	return (0);
 }

@@ -24,7 +24,7 @@ int		main(int argc, char **argv, char **envp);
 void	ft_init_pipex(t_pipex *pipex, int argc);
 void	ft_check_args(t_pipex *pipex, int argc, char **argv);
 void	execute_loop(t_pipex *pipex, int argc, char **argv, char **envp);
-void	ft_parse_commands(t_pipex *pipex, char **envp, char *cmd);
+int		ft_parse_commands(t_pipex *pipex, char **envp, char *cmd, char **exec_args);
 void	malloc_abs_path1(t_pipex *pipex, char **cmd_tokens);
 void	malloc_abs_path2(t_pipex *pipex, char **cmd_tokens);
 char	*get_paths(t_pipex *pipex, char **envp, char *cmd);

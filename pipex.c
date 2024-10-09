@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 18:16:54 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/09 19:05:11 by smishos          ###   ########.fr       */
+/*   Updated: 2024/10/09 20:58:36 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	child_process1(t_pipex *pipex, char **argv, char **envp)
 	exec_args1 = ft_split(argv[2], ' ');
 	if (argv[2][0] == '\0' || argv[2][0] == ' ')
 		error_exit(pipex, argv[2], "command not found\n", 0);
-	ft_parse_commands(pipex, envp, argv[2 + pipex->i]);
+	ft_parse_commands(pipex, envp, argv[2 + pipex->i], exec_args1);
 	close(pipex->fd[0]);
 	close(pipex->outfile);
 	dup2(pipex->infile, STDIN_FILENO);
@@ -42,7 +42,7 @@ void	child_process2(t_pipex *pipex, char **argv, int argc, char **envp)
 	exec_args2 = ft_split(argv[argc - 2], ' ');
 	if (argv[argc - 2][0] == '\0' || argv[argc - 2][0] == ' ')
 		error_exit(pipex, argv[argc - 2], "command not found\n", 127);
-	ft_parse_commands(pipex, envp, argv[2 + pipex->i]);
+	ft_parse_commands(pipex, envp, argv[2 + pipex->i], exec_args2);
 	close(pipex->fd[1]);
 	close(pipex->infile);
 	dup2(pipex->fd[0], STDIN_FILENO);
