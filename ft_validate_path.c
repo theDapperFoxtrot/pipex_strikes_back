@@ -52,7 +52,7 @@ void allocate_cmd_args(t_pipex *pipex, char *full_path, char **cmd_tokens)
 }
 
 // This function is used to check if the path is valid
-static int access_check(t_pipex *pipex, char *full_path, char **cmd_tokens)
+int access_check(t_pipex *pipex, char *full_path, char **cmd_tokens)
 {
 	if (!access(full_path, X_OK))
 	{

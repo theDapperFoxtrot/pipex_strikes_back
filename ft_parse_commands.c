@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 18:16:59 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/09 19:59:13 by smishos          ###   ########.fr       */
+/*   Updated: 2024/10/09 20:24:22 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char *get_paths(t_pipex *pipex, char **envp, char *cmd)
 	int 	i;
 
 	i = 0;
-	// ft_bzero(path, sizeof(path));
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
@@ -29,8 +28,6 @@ char *get_paths(t_pipex *pipex, char **envp, char *cmd)
 		}
 		i++;
 	}
-	// if (path[0] == '\0' && access(cmd, X_OK))
-	// printf("len: %ld\n", ft_strlen(path));
 	if (!path && access(cmd, X_OK))
 		error_exit(pipex, cmd, "No such file or directory\n", 127);
 	return (path);
