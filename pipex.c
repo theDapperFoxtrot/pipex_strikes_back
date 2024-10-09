@@ -1,104 +1,101 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/09 18:16:54 by smishos           #+#    #+#             */
+/*   Updated: 2024/10/09 19:05:11 by smishos          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-int main (int argc, char **argv, char **envp)
+void	child_process1(t_pipex *pipex, char **argv, char **envp)
 {
-	t_pipex pipex;
-
-	ft_init_pipex(&pipex, argc);
-    if (argc != 5)
-    {
-        ft_putstr_fd("Unexpected format used\n", 2);
-        error_exit(&pipex, NULL, "Expected format: ./&pipex file1 cmd1 cmd2 file2\n", 1);
-    }
-	ft_check_args(&pipex, argc, argv);
-
-	// pipex.i = 0;
-	// while (pipex.i < pipex.command_count)
-	// {
-	// 	ft_parse_commands(&pipex, envp, argv[2 + pipex.i]);
-	// 	pipex.i++;
-	// }
-	char **exec_args1;
-	char **exec_args2;
+	char	**exec_args1;
 
 	exec_args1 = ft_split(argv[2], ' ');
-	exec_args2 = ft_split(argv[argc - 2], ' ');
-	pipex.i = 0;
-	if (pipe(pipex.fd) == -1)
-		error_exit(&pipex, NULL, "Pipe function failed\n", 1);
-	while (pipex.i < pipex.command_count)
-	{
-		pipex.pid[pipex.i] = (pid_t) fork();
-		if (pipex.pid[pipex.i] < 0)
-			error_exit(&pipex, NULL, "Fork was unsuccessful", 1);
-		if (pipex.pid[pipex.i] == 0 && pipex.i == 0)
-		{
-			if (argv[2][0] == '\0' || argv[2][0] == ' ')
-				error_exit(&pipex, argv[2], "command not found\n", 0);
-			ft_parse_commands(&pipex, envp, argv[2 + pipex.i]);
-			close(pipex.fd[0]);
-			close(pipex.outfile);
-			dup2(pipex.infile, STDIN_FILENO);
-			close(pipex.infile);
-			dup2(pipex.fd[1], STDOUT_FILENO);
-			close(pipex.fd[1]);
-			execve(pipex.cmd_args1[0], exec_args1, envp);
-			if (access(argv[2], F_OK) == -1)
-				error_exit(&pipex, argv[2], "No such file or directory\n", 127);
-			if (access(argv[2], X_OK) == -1)
-				error_exit(&pipex, argv[2], "Permission denied\n", 126);
-			error_exit(&pipex, argv[2], "Is a directory\n", 0);
-		}
-		if (pipex.pid[pipex.i] == 0 && pipex.i == 1)
-		{
-			if (argv[argc - 2][0] == '\0' || argv[argc - 2][0] == ' ')
-				error_exit(&pipex, argv[argc - 2], "command not found\n", 127);
-			ft_parse_commands(&pipex, envp, argv[2 + pipex.i]);
-			close(pipex.fd[1]);
-			close(pipex.infile);
-			dup2(pipex.fd[0], STDIN_FILENO);
-			dup2(pipex.outfile, STDOUT_FILENO);
-			close(pipex.outfile);
-			close(pipex.fd[0]);
-			execve(pipex.cmd_args2[0], exec_args2, envp);
-			if (access(argv[argc - 2], F_OK) == -1)
-				error_exit(&pipex, argv[argc - 2], "No such file or directory\n", 127);
-			if (access(argv[argc - 2], X_OK) == -1)
-				error_exit(&pipex, argv[argc - 2], "Permission denied\n", 126);
-			error_exit(&pipex, argv[argc - 2], "Is a directory\n", 126);
-		}
-		pipex.i++;
-	}
-	close(pipex.infile);
-	close(pipex.outfile);
-	close(pipex.fd[0]);
-	close(pipex.fd[1]);
-	pipex.i = 0;
-	int status;
-	int exit_code;
-
-	waitpid(pipex.pid[1], &status, 0);
-	while (waitpid(0, NULL, 0) > 0)
-		continue ;
-	if (WIFEXITED(status))
-		exit_code = WEXITSTATUS(status);
-	// int child_pid;
-	// while (pipex.i < 2)
-	// {
-	// 	exit_code = waitpid(-1, &status, 0);
-	// 	if (WIFEXITED(status))
-	// 	{
-	// 		exit_code = WEXITSTATUS(status);
-	// 		break ;
-	// 	}
-	// 	// else if (WIFSIGNALED(status))
-	// 	// 	status = WTERMSIG(status) + 128;
-	// 	// if (child_pid == pipex.pid[1])
-			
-	// 	pipex.i++;
-	// }
+	if (argv[2][0] == '\0' || argv[2][0] == ' ')
+		error_exit(pipex, argv[2], "command not found\n", 0);
+	ft_parse_commands(pipex, envp, argv[2 + pipex->i]);
+	close(pipex->fd[0]);
+	close(pipex->outfile);
+	dup2(pipex->infile, STDIN_FILENO);
+	close(pipex->infile);
+	dup2(pipex->fd[1], STDOUT_FILENO);
+	close(pipex->fd[1]);
+	execve(pipex->cmd_args1[0], exec_args1, envp);
 	free_split(exec_args1);
+	if (access(argv[2], F_OK) == -1)
+		error_exit(pipex, argv[2], "No such file or directory\n", 127);
+	if (access(argv[2], X_OK) == -1)
+		error_exit(pipex, argv[2], "Permission denied\n", 126);
+	error_exit(pipex, argv[2], "Is a directory\n", 0);
+}
+
+void	child_process2(t_pipex *pipex, char **argv, int argc, char **envp)
+{
+	char	**exec_args2;
+
+	exec_args2 = ft_split(argv[argc - 2], ' ');
+	if (argv[argc - 2][0] == '\0' || argv[argc - 2][0] == ' ')
+		error_exit(pipex, argv[argc - 2], "command not found\n", 127);
+	ft_parse_commands(pipex, envp, argv[2 + pipex->i]);
+	close(pipex->fd[1]);
+	close(pipex->infile);
+	dup2(pipex->fd[0], STDIN_FILENO);
+	dup2(pipex->outfile, STDOUT_FILENO);
+	close(pipex->outfile);
+	close(pipex->fd[0]);
+	execve(pipex->cmd_args2[0], exec_args2, envp);
 	free_split(exec_args2);
-	ft_cleanup(&pipex);
+	if (access(argv[argc - 2], F_OK) == -1)
+		error_exit(pipex, argv[argc - 2], "No such file or directory\n", 127);
+	if (access(argv[argc - 2], X_OK) == -1)
+		error_exit(pipex, argv[argc - 2], "Permission denied\n", 126);
+	error_exit(pipex, argv[argc - 2], "Is a directory\n", 126);
+}
+
+void	execute_loop(t_pipex *pipex, int argc, char **argv, char **envp)
+{
+	while (pipex->i < pipex->command_count)
+	{
+		pipex->pid[pipex->i] = (pid_t) fork();
+		if (pipex->pid[pipex->i] < 0)
+			error_exit(pipex, NULL, "Fork was unsuccessful", 1);
+		if (pipex->pid[pipex->i] == 0 && pipex->i == 0)
+			child_process1(pipex, argv, envp);
+		if (pipex->pid[pipex->i] == 0 && pipex->i == 1)
+			child_process2(pipex, argv, argc, envp);
+		pipex->i++;
+	}
+}
+
+void	close_fds(t_pipex *pipex)
+{
+	close(pipex->infile);
+	close(pipex->outfile);
+	close(pipex->fd[0]);
+	close(pipex->fd[1]);
+}
+
+int	handle_exit(t_pipex *pipex)
+{
+	int		status;
+	int		exit_code;
+	int		child_pid;
+
+	while (pipex->i < 2)
+	{
+		child_pid = waitpid(-1, &status, 0);
+		if (WIFEXITED(status) && child_pid == pipex->pid[1])
+		{
+			exit_code = WEXITSTATUS(status);
+			break ;
+		}
+		pipex->i++;
+	}
 	return (exit_code);
 }
