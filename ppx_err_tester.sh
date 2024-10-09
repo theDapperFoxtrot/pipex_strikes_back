@@ -43,10 +43,10 @@ show_diff() {
 	printf "${RC}\n"
 }
 
-# print_terminator() {
-# 	printf "${P}${FLLTITLE}${RC} ${GB}FINISH ${P}${FLLTITLE}${RC}\n\n"
-# 	read -p "Continue?" -n 1 -r
-# }
+print_terminator() {
+	printf "${P}${FLLTITLE}${RC} ${GB}FINISH ${P}${FLLTITLE}${RC}\n\n"
+	read -p "Continue?" -n 1 -r
+}
 
 print_title() {
 	# printf "\033c" #clear terminal
@@ -69,7 +69,7 @@ compare() {
 	run_pipex "$1" "$2" "$3" "$4"
 	run_shell "$1" "$2" "$3" "$5"
 	show_diff "$4" "$5"
-	# print_terminator
+	print_terminator
 }
 
 trap handle_ctrlc SIGINT
@@ -164,21 +164,21 @@ print_title "${GB}☑ infile" "${RB}☒ command" "${GB}☑ command" "${GB}☑ ou
 run_pipex ${in1} "" "wc" ${out1}
 run_shell ${in1} "''" "wc" ${out2}
 show_diff ${out1} ${out2}
-# print_terminator
+print_terminator
 
 print_title "${GB}☑ infile" "${GB}☑ command" "${RB}☒ command" "${GB}☑ outfile" \
 			"EMPTY CMD2\n" "${CNTR}"
 run_pipex ${in1} "ls" "     " ${out1}
 run_shell ${in1} "ls" "'     '" ${out2}
 show_diff ${out1} ${out2}
-# print_terminator
+print_terminator
 
 print_title "${GB}☑ infile" "${RB}☒ command" "${RB}☒ command" "${GB}☑ outfile" \
 			"NULL STRING CMD1, EMPTY CMD2\n" "${CNTR}"
 run_pipex ${in1} "" "     " ${out1}
 run_shell ${in1} "''" "'     '" ${out2}
 show_diff ${out1} ${out2}
-# print_terminator
+print_terminator
 
 print_title "${GB}☑ infile" "${RB}☒ command" "${GB}☑ command" "${GB}☑ outfile" \
 			"BAD ARGS CMD1, VALID CMD2\n" "${CNTR}"

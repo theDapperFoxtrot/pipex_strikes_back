@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/09 23:22:45 by thedapperfo       #+#    #+#             */
+/*   Updated: 2024/10/10 01:39:51 by thedapperfo      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
 # include <unistd.h>
@@ -12,19 +24,22 @@ typedef struct s_pipex
 	int		argc;
 	int		infile;
 	int		outfile;
-	int     i; //track which command we're working with (first/second)
+	int		i;
 	char	**cmd_args1;
 	char	**cmd_args2;
-	int  	command_count;
+	int		command_count;
 	int		fd[2];
-	pid_t   pid[2];
-} t_pipex;
+	pid_t	pid[2];
+}		t_pipex;
 
 int		main(int argc, char **argv, char **envp);
 void	ft_init_pipex(t_pipex *pipex, int argc);
 void	ft_check_args(t_pipex *pipex, int argc, char **argv);
 void	execute_loop(t_pipex *pipex, int argc, char **argv, char **envp);
-int		ft_parse_commands(t_pipex *pipex, char **envp, char *cmd, char **exec_args);
+int		ft_parse_commands(t_pipex *pipex, char **envp, \
+			char *cmd, char **exec_args);
+void	free_exec_args_and_exit(t_pipex *pipex, char *cmd, char **exec_args);
+int		free_path_and_tokens(char *path, char **cmd_tokens);
 void	malloc_abs_path1(t_pipex *pipex, char **cmd_tokens);
 void	malloc_abs_path2(t_pipex *pipex, char **cmd_tokens);
 char	*get_paths(t_pipex *pipex, char **envp, char *cmd);
@@ -40,7 +55,7 @@ void	child_process2(t_pipex *pipex, char **argv, int argc, char **envp);
 void	execute_loop(t_pipex *pipex, int argc, char **argv, char **envp);
 void	close_fds(t_pipex *pipex);
 int		handle_exit(t_pipex *pipex);
-int		error_exit(t_pipex *pipex,char *complaint, char *msg, int code);
+int		error_exit(t_pipex *pipex, char *complaint, char *msg, int code);
 void	ft_cleanup(t_pipex *pipex);
 
 #endif

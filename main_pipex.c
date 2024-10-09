@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 18:33:57 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/09 19:07:11 by smishos          ###   ########.fr       */
+/*   Updated: 2024/10/10 00:11:50 by thedapperfo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int argc, char **argv, char **envp)
 		error_exit(&pipex, NULL, \
 			"Expected format: ./&pipex file1 cmd1 cmd2 file2\n", 1);
 	ft_check_args(&pipex, argc, argv);
-	pipex.i = 0;
 	if (pipe(pipex.fd) == -1)
 		error_exit(&pipex, NULL, "Pipe function failed\n", 1);
 	execute_loop(&pipex, argc, argv, envp);
