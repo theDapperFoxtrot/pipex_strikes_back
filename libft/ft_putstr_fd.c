@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 16:38:06 by smishos           #+#    #+#             */
-/*   Updated: 2024/04/25 16:38:19 by smishos          ###   ########.fr       */
+/*   Updated: 2024/04/27 15:41:30 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+	write(fd, s, ft_strlen(s));
 }

@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 16:28:49 by smishos           #+#    #+#             */
-/*   Updated: 2024/04/28 18:25:13 by smishos          ###   ########.fr       */
+/*   Updated: 2024/04/27 15:41:41 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static int	count_substrings(const char *str, char c)
 	int	count;
 	int	in_substring;
 
-	count = 0; //counting the strings
-	in_substring = 0; //a flag to determine if you're seeing characters other than the separator
+	count = 0;
+	in_substring = 0;
 	while (*str)
 	{
-		if (*str != c && in_substring == 0) //when the separator is found and flag is false
+		if (*str != c && in_substring == 0)
 		{
 			in_substring = 1;
 			count++;
 		}
 		else if (*str == c)
-			in_substring = 0; //when you discover the separator again, reset the flag to false
+			in_substring = 0;
 		str++;
 	}
 	return (count);
@@ -35,17 +35,17 @@ static int	count_substrings(const char *str, char c)
 
 static char	*substring_create(const char *str, int start, int finish)
 {
-	char	*substr; //we're going to create each string in this function
+	char	*substr;
 	int		i;
 
 	i = 0;
-	substr = (char *)malloc((finish - start + 1) * sizeof(char)); //allocating memory for each
+	substr = (char *)malloc((finish - start + 1) * sizeof(char));
 	if (!substr)
-		return (NULL); //testing for successful allocation
+		return (NULL);
 	while (start < finish)
-		substr[i++] = str[start++]; //and then copying the characters from the larger source string into the individual sub string array
-	substr[i] = '\0'; //terminate the new substring with a null character
-	return (substr); //and return it
+		substr[i++] = str[start++];
+	substr[i] = '\0';
+	return (substr);
 }
 
 static void	free_result_array(char **result, int j)
@@ -65,7 +65,7 @@ static int	split_string(char const *s, char c, char **result, int count)
 	size_t	i;
 	int		j;
 	int		index;
-//
+
 	i = 0;
 	j = 0;
 	index = -1;
@@ -96,12 +96,12 @@ char	**ft_split(char const *s, char c)
 	char	**result;
 
 	if (!s)
-		return (NULL); //if there's no string (empty and only a null character), return null
-	count = count_substrings(s, c); //pass the string and separator
-	result = (char **)malloc((count + 1) * sizeof(char *)); //malloc for an array of an array of characters
+		return (NULL);
+	count = count_substrings(s, c);
+	result = (char **)malloc((count + 1) * sizeof(char *));
 	if (!result)
-		return (NULL); //if memory allocation fails, return null
-	split_check = split_string(s, c, result, count); //pass all information to split_string
+		return (NULL);
+	split_check = split_string(s, c, result, count);
 	if (split_check == 1)
 	{
 		return (NULL);
@@ -112,9 +112,3 @@ char	**ft_split(char const *s, char c)
 		return (result);
 	}
 }
-
-// int main()
-// {
-// 	ft_split("Hey this is a test string", ' ');
-// 	return (0);
-// }

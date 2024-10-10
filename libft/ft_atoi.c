@@ -6,11 +6,9 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:04:27 by smishos           #+#    #+#             */
-/*   Updated: 2024/08/21 18:54:50 by smishos          ###   ########.fr       */
+/*   Updated: 2024/04/27 15:40:08 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_atoi(const char *str)
 {
@@ -29,9 +27,8 @@ int	ft_atoi(const char *str)
 			sign = sign * -1;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		check = ret; //assign check
-		ret = (ret * 10) + (str[i++] - 48); //number grows bigger
-		//check if check bigger than ret (ret should always be bigger until max_long overflow)
+		check = ret;
+		ret = (ret * 10) + (str[i++] - 48);
 		if (check > ret && sign == 1)
 			return (-1);
 		if (check > ret && sign == -1)
@@ -39,18 +36,3 @@ int	ft_atoi(const char *str)
 	}
 	return ((int)(ret * sign));
 }
-
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <limits.h>
-// int	main()
-// {
-// 	char *str = "-9223372136854775819";
-// 	while (*str)
-// 	{
-// 	printf("%d\n", ft_atoi(str));
-// 	printf("%d\n\n", atoi(str));
-// 	str++;
-// 	}
-// 	return (0);
-// }

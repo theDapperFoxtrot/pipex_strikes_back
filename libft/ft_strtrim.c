@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 16:26:18 by smishos           #+#    #+#             */
-/*   Updated: 2024/04/27 15:57:01 by smishos          ###   ########.fr       */
+/*   Updated: 2024/04/27 16:17:16 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	result[len] = '\0';
 	return (result);
 }
-
-// #include "libft.h"
-// #include <stdio.h>
-
-// int main() {
-//     const char *s1 = "   Hello, world!   ";
-//     const char *set = " ";
-//     char *trimmed = ft_strtrim(s1, set);
-    
-//     if (trimmed) {
-//         printf("Original string: \"%s\"\n", s1);
-//         printf("Trimmed string: \"%s\"\n", trimmed);
-//         free(trimmed);
-//     } else {
-//         printf("Error: Unable to allocate memory.\n");
-//     }
-    
-//     return 0;
-// }

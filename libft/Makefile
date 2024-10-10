@@ -7,9 +7,7 @@ SRCS = ft_atoi.c \
 	ft_isalpha.c \
 	ft_isascii.c \
 	ft_isdigit.c \
-	ft_isdirectory.c \
 	ft_isprint.c \
-	ft_isspace.c \
 	ft_itoa.c \
 	ft_memchr.c \
 	ft_memcmp.c \
@@ -36,15 +34,6 @@ SRCS = ft_atoi.c \
 	ft_substr.c \
 	ft_tolower.c \
 	ft_toupper.c \
-	ft_lstnew.c \
-	ft_lstadd_front.c \
-	ft_lstsize.c \
-	ft_lstlast.c \
-	ft_lstadd_back.c \
-	ft_lstdelone.c \
-	ft_lstclear.c \
-	ft_lstiter.c \
-	ft_lstmap.c \
 
 BONUS = ft_lstnew_bonus.c \
 	ft_lstadd_front_bonus.c \
@@ -65,7 +54,7 @@ RM = rm -rf
 LIB = ranlib
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 
 OBJS = ${SRCS:.c=.o}
 

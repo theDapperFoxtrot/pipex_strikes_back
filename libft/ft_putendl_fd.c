@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 16:38:58 by smishos           #+#    #+#             */
-/*   Updated: 2024/04/25 16:39:12 by smishos          ###   ########.fr       */
+/*   Updated: 2024/04/27 15:41:24 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	if (s)
-	{
-		write(fd, s, ft_strlen(s));
-		write(fd, "\n", 1);
-	}
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }
