@@ -6,7 +6,7 @@
 /*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 18:16:54 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/11 01:02:09 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 01:58:29 by thedapperfo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	child_process2(t_pipex *pipex, char **argv, int argc, char **envp)
 
 void	execute_loop(t_pipex *pipex, int argc, char **argv, char **envp)
 {
-	pipex->i = 0;
 	while (pipex->i < pipex->command_count)
 	{
 		pipex->pid[pipex->i] = (pid_t) fork();

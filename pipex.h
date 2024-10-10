@@ -6,7 +6,7 @@
 /*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:22:45 by thedapperfo       #+#    #+#             */
-/*   Updated: 2024/10/11 01:12:17 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 02:11:41 by thedapperfo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_pipex
 	char	**cmd_args2;
 	char	**exec_args2;
 	char	**cmd_tokens;
+	int		free_cmd_tokens_flag;
 	int		command_count;
 	int		fd[2];
 	pid_t	pid[2];
@@ -39,7 +40,9 @@ void	ft_init_pipex(t_pipex *pipex, int argc);
 void	execute_loop(t_pipex *pipex, int argc, char **argv, char **envp);
 void	ft_parse_commands(t_pipex *pipex, char **envp, char *cmd);
 void	cmd_not_found_exit(t_pipex *pipex, char *cmd);
-int		free_path_and_tokens(char *path);
+void	no_such_file_and_exit(t_pipex *pipex, char *cmd);
+void	perm_denied_and_exit(t_pipex *pipex, char *cmd);
+int		free_path_and_tokens(t_pipex *pipex, char *path);
 void	malloc_abs_path1(t_pipex *pipex, char **cmd_tokens);
 void	malloc_abs_path2(t_pipex *pipex, char **cmd_tokens);
 char	*get_paths(t_pipex *pipex, char **envp, char *cmd);

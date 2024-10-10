@@ -6,7 +6,7 @@
 /*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 18:16:59 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/11 01:02:15 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 02:11:06 by thedapperfo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	ft_slash_check(t_pipex *pipex, char *cmd)
 				if (!access(cmd, X_OK))
 					return (1);
 				else
-					error_exit(pipex, cmd, "Permission denied\n", 126);
+					perm_denied_and_exit(pipex, cmd);
 			}
 			else
-				error_exit(pipex, cmd, "No such file or directory \n", 127);
+				no_such_file_and_exit(pipex, cmd);
 		}
 		i++;
 	}
@@ -101,8 +101,6 @@ void	ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 {
 	char	*path;
 
-	if (pipex->cmd_tokens)
-		free_split(pipex->cmd_tokens);
 	if (cmd)
 		pipex->cmd_tokens = ft_split(cmd, ' ');
 	if (!pipex->cmd_tokens)
@@ -118,10 +116,10 @@ void	ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 	}
 	path = get_paths(pipex, envp, cmd);
 	if (loop_paths(pipex, path, pipex->cmd_tokens))
-		free_path_and_tokens(path);
+		free_path_and_tokens(pipex, path);
 	else
 	{
-		free_path_and_tokens(path);
+		free_path_and_tokens(pipex, path);
 		cmd_not_found_exit(pipex, cmd);
 	}
 }
