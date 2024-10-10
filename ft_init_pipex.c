@@ -6,7 +6,7 @@
 /*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:25:42 by thedapperfo       #+#    #+#             */
-/*   Updated: 2024/10/11 01:54:25 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 02:46:27 by thedapperfo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,6 @@ void	ft_init_pipex(t_pipex *pipex, int argc)
 	pipex->exec_args2 = NULL;
 	pipex->cmd_tokens = NULL;
 	pipex->free_cmd_tokens_flag = 0;
+	pipex->fd[0] = -1;
+	pipex->fd[1] = -1;
 }

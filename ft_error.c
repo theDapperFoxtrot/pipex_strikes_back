@@ -6,7 +6,7 @@
 /*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:26:10 by thedapperfo       #+#    #+#             */
-/*   Updated: 2024/10/11 00:43:14 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 02:54:43 by thedapperfo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	error_exit(t_pipex *pipex, char *complaint, char *msg, int code)
 {
-	close_fds(pipex);
+	if (pipex->pid[pipex->i] == 0)
+		close(pipex->fd[0]);
 	if (complaint)
 	{
 		ft_putstr_fd(complaint, 2);
