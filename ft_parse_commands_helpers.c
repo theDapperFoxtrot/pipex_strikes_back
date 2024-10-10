@@ -6,7 +6,7 @@
 /*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:20:02 by thedapperfo       #+#    #+#             */
-/*   Updated: 2024/10/10 01:35:22 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 00:42:40 by thedapperfo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,16 @@ char	*get_paths(t_pipex *pipex, char **envp, char *cmd)
 	return (path);
 }
 
-void	free_exec_args_and_exit(t_pipex *pipex, char *cmd, char **exec_args)
+void	cmd_not_found_exit(t_pipex *pipex, char *cmd)
 {
-	free_split(exec_args);
 	if (pipex->i == 0)
 		error_exit(pipex, cmd, "command not found\n", 1);
 	else
 		error_exit(pipex, cmd, "command not found\n", 127);
 }
 
-int	free_path_and_tokens(char *path, char **cmd_tokens)
+int	free_path_and_tokens(char *path)
 {
 	free(path);
-	free_split(cmd_tokens);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:22:45 by thedapperfo       #+#    #+#             */
-/*   Updated: 2024/10/10 18:02:18 by smishos          ###   ########.fr       */
+/*   Updated: 2024/10/11 00:38:21 by thedapperfo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ typedef struct s_pipex
 	int		outfile;
 	int		i;
 	char	**cmd_args1;
+	char	**exec_args1;
 	char	**cmd_args2;
+	char	**exec_args2;
+	char	**cmd_tokens;
 	int		command_count;
 	int		fd[2];
 	pid_t	pid[2];
@@ -35,10 +38,9 @@ typedef struct s_pipex
 int		main(int argc, char **argv, char **envp);
 void	ft_init_pipex(t_pipex *pipex, int argc);
 void	execute_loop(t_pipex *pipex, int argc, char **argv, char **envp);
-int		ft_parse_commands(t_pipex *pipex, char **envp, \
-			char *cmd, char **exec_args);
-void	free_exec_args_and_exit(t_pipex *pipex, char *cmd, char **exec_args);
-int		free_path_and_tokens(char *path, char **cmd_tokens);
+void	ft_parse_commands(t_pipex *pipex, char **envp, char *cmd);
+void	cmd_not_found_exit(t_pipex *pipex, char *cmd);
+int		free_path_and_tokens(char *path);
 void	malloc_abs_path1(t_pipex *pipex, char **cmd_tokens);
 void	malloc_abs_path2(t_pipex *pipex, char **cmd_tokens);
 char	*get_paths(t_pipex *pipex, char **envp, char *cmd);

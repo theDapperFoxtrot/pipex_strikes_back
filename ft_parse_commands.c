@@ -6,7 +6,7 @@
 /*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 18:16:59 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/10 01:35:37 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 01:02:15 by thedapperfo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,32 +97,31 @@ void	malloc_abs_path2(t_pipex *pipex, char **cmd_tokens)
 // or simply the name of the executable where we then loop
 // through the paths to find the executable and
 // store the full path to the executable in the command_arguments array
-int	ft_parse_commands(t_pipex *pipex, char **envp, \
-	char *cmd, char **exec_args)
+void	ft_parse_commands(t_pipex *pipex, char **envp, char *cmd)
 {
 	char	*path;
-	char	**cmd_tokens;
 
+	if (pipex->cmd_tokens)
+		free_split(pipex->cmd_tokens);
 	if (cmd)
-		cmd_tokens = ft_split(cmd, ' ');
-	if (!cmd_tokens)
+		pipex->cmd_tokens = ft_split(cmd, ' ');
+	if (!pipex->cmd_tokens)
 		error_exit(pipex, NULL, "Failed to split commands into tokens\n", 1);
-	if (ft_slash_check(pipex, cmd_tokens[0]))
+	if (ft_slash_check(pipex, pipex->cmd_tokens[0]))
 	{
 		if (pipex->i == 0)
-			malloc_abs_path1(pipex, cmd_tokens);
+			malloc_abs_path1(pipex, pipex->cmd_tokens);
 		else
-			malloc_abs_path2(pipex, cmd_tokens);
-		free_split(cmd_tokens);
-		return (0);
+			malloc_abs_path2(pipex, pipex->cmd_tokens);
+		free_split(pipex->cmd_tokens);
+		return ;
 	}
 	path = get_paths(pipex, envp, cmd);
-	if (loop_paths(pipex, path, cmd_tokens))
-		return (free_path_and_tokens(path, cmd_tokens));
+	if (loop_paths(pipex, path, pipex->cmd_tokens))
+		free_path_and_tokens(path);
 	else
 	{
-		free_path_and_tokens(path, cmd_tokens);
-		free_exec_args_and_exit(pipex, cmd, exec_args);
+		free_path_and_tokens(path);
+		cmd_not_found_exit(pipex, cmd);
 	}
-	return (0);
 }

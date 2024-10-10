@@ -6,7 +6,7 @@
 /*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:27:35 by thedapperfo       #+#    #+#             */
-/*   Updated: 2024/10/09 23:27:36 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 00:58:12 by thedapperfo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_cleanup(t_pipex *pipex)
 {
 	free_split(pipex->cmd_args1);
 	free_split(pipex->cmd_args2);
+	free_split(pipex->exec_args1);
+	free_split(pipex->exec_args2);
 }
 
 void	free_split(char **split_array)
@@ -25,7 +27,7 @@ void	free_split(char **split_array)
 	i = 0;
 	if (split_array != NULL)
 	{
-		while (split_array[i])
+		while (split_array[i] != NULL)
 		{
 			free(split_array[i]);
 			split_array[i] = NULL;
