@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
+/*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:22:45 by thedapperfo       #+#    #+#             */
-/*   Updated: 2024/10/10 01:39:51 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/10 18:02:18 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_pipex
 
 int		main(int argc, char **argv, char **envp);
 void	ft_init_pipex(t_pipex *pipex, int argc);
-void	ft_check_args(t_pipex *pipex, int argc, char **argv);
 void	execute_loop(t_pipex *pipex, int argc, char **argv, char **envp);
 int		ft_parse_commands(t_pipex *pipex, char **envp, \
 			char *cmd, char **exec_args);
