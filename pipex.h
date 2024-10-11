@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
+/*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:22:45 by thedapperfo       #+#    #+#             */
-/*   Updated: 2024/10/11 02:11:41 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:20:19 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

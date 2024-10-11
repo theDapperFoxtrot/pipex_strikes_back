@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cleanup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
+/*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:27:35 by thedapperfo       #+#    #+#             */
-/*   Updated: 2024/10/11 01:55:06 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:20:35 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

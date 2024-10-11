@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_commands_helpers.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
+/*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:20:02 by thedapperfo       #+#    #+#             */
-/*   Updated: 2024/10/11 02:10:55 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:20:29 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

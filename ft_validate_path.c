@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_validate_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thedapperfoxtrot <thedapperfoxtrot@stud    +#+  +:+       +#+        */
+/*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:11:58 by thedapperfo       #+#    #+#             */
-/*   Updated: 2024/10/10 01:40:13 by thedapperfo      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:20:24 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
