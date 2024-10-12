@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 18:16:54 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/11 14:20:16 by smishos          ###   ########.fr       */
+/*   Updated: 2024/10/12 17:02:49 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	child_process1(t_pipex *pipex, char **argv, char **envp)
 	else if (pipex->infile == -1 && access(argv[1], R_OK))
 		error_exit(pipex, argv[1], "Permission denied\n", 0);
 	pipex->exec_args1 = ft_split(argv[2], ' ');
-	if (argv[2][0] == '\0' || argv[2][0] == ' ')
+	if (argv[2][0] == '\0' || ft_isspace(argv[2]))
 		error_exit(pipex, argv[2], "command not found\n", 0);
 	ft_parse_commands(pipex, envp, argv[2 + pipex->i]);
 	dup2(pipex->infile, STDIN_FILENO);
@@ -47,7 +47,7 @@ void	child_process2(t_pipex *pipex, char **argv, int argc, char **envp)
 	else if (pipex->outfile == -1 && access(argv[argc - 1], W_OK))
 		error_exit(pipex, argv[argc - 1], "Permission denied\n", 1);
 	pipex->exec_args2 = ft_split(argv[argc - 2], ' ');
-	if (argv[argc - 2][0] == '\0' || argv[argc - 2][0] == ' ')
+	if (argv[argc - 2][0] == '\0' || ft_isspace(argv[argc - 2]))
 		error_exit(pipex, argv[argc - 2], "command not found\n", 127);
 	ft_parse_commands(pipex, envp, argv[2 + pipex->i]);
 	dup2(pipex->outfile, STDOUT_FILENO);
