@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:15:24 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/14 15:15:26 by smishos          ###   ########.fr       */
+/*   Updated: 2024/10/14 17:55:11 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_pipex
 	char	**exec_args2;
 	char	**cmd_tokens;
 	int		free_cmd_tokens_flag;
+	int		close_infile;
+	int		close_outfile;
 	int		command_count;
 	int		fd[2];
 	pid_t	pid[2];

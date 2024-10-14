@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:14:42 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/14 15:14:43 by smishos          ###   ########.fr       */
+/*   Updated: 2024/10/14 17:56:01 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,6 @@ void	ft_init_pipex(t_pipex *pipex, int argc)
 	pipex->exec_args2 = NULL;
 	pipex->cmd_tokens = NULL;
 	pipex->free_cmd_tokens_flag = 0;
+	pipex->close_infile = 0;
+	pipex->close_outfile = 0;
 }

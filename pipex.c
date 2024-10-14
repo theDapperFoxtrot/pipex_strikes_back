@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:15:17 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/14 15:15:18 by smishos          ###   ########.fr       */
+/*   Updated: 2024/10/14 18:01:56 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	child_process1(t_pipex *pipex, char **argv, char **envp)
 	dup2(pipex->fd[1], STDOUT_FILENO);
 	close(pipex->fd[1]);
 	pipex->infile = open(argv[1], O_RDONLY);
+	pipex->close_infile = 1;
 	if (pipex->infile == -1 && access(argv[1], F_OK))
 		error_exit(pipex, argv[1], "No such file or directory\n", 0);
 	else if (pipex->infile == -1 && access(argv[1], R_OK))
@@ -27,6 +28,7 @@ void	child_process1(t_pipex *pipex, char **argv, char **envp)
 		error_exit(pipex, argv[2], "command not found\n", 0);
 	ft_parse_commands(pipex, envp, argv[2 + pipex->i]);
 	dup2(pipex->infile, STDIN_FILENO);
+	pipex->close_infile = 0;
 	close(pipex->infile);
 	execve(pipex->cmd_args1[0], pipex->exec_args1, envp);
 	if (access(argv[2], F_OK) == -1)
@@ -42,6 +44,7 @@ void	child_process2(t_pipex *pipex, char **argv, int argc, char **envp)
 	dup2(pipex->fd[0], STDIN_FILENO);
 	close(pipex->fd[0]);
 	pipex->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	pipex->close_outfile = 1;
 	if (pipex->outfile == -1 && access(argv[argc - 1], F_OK))
 		error_exit(pipex, argv[argc - 1], "No such file or directory\n", 1);
 	else if (pipex->outfile == -1 && access(argv[argc - 1], W_OK))
@@ -51,6 +54,7 @@ void	child_process2(t_pipex *pipex, char **argv, int argc, char **envp)
 		error_exit(pipex, argv[argc - 2], "command not found\n", 127);
 	ft_parse_commands(pipex, envp, argv[2 + pipex->i]);
 	dup2(pipex->outfile, STDOUT_FILENO);
+	pipex->close_outfile = 0;
 	close(pipex->outfile);
 	execve(pipex->cmd_args2[0], pipex->exec_args2, envp);
 	if (access(argv[argc - 2], F_OK) == -1)
