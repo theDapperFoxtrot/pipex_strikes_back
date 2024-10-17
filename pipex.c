@@ -6,7 +6,7 @@
 /*   By: smishos <smishos@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:15:17 by smishos           #+#    #+#             */
-/*   Updated: 2024/10/14 18:01:56 by smishos          ###   ########.fr       */
+/*   Updated: 2024/10/16 18:38:06 by smishos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	child_process2(t_pipex *pipex, char **argv, int argc, char **envp)
 		error_exit(pipex, argv[argc - 1], "No such file or directory\n", 1);
 	else if (pipex->outfile == -1 && access(argv[argc - 1], W_OK))
 		error_exit(pipex, argv[argc - 1], "Permission denied\n", 1);
+	else if (pipex->outfile == -1 && access(argv[argc - 1], __O_DIRECTORY))
+		error_exit(pipex, argv[argc - 1], "Is a directory\n", 1);
 	pipex->exec_args2 = ft_split(argv[argc - 2], ' ');
 	if (argv[argc - 2][0] == '\0' || ft_isspace(argv[argc - 2]))
 		error_exit(pipex, argv[argc - 2], "command not found\n", 127);
